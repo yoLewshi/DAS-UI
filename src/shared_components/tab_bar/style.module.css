@@ -1,0 +1,7 @@
+.tab_bar {
+
+}
+
+.tab_bar :global(.nav-link) {
+    height: 100%;
+}

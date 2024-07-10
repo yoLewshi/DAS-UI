@@ -1,0 +1,8 @@
+.toast_outer {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.toast_outer[type="error"] {
+    border-top: 0.5rem solid var(--bs-danger);
+}

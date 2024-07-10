@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'Inter Tight';
+    src: url('./fonts/InterTight-VariableFont_wght.ttf') format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: auto;
+}
+
+@font-face {
+    font-family: 'Inter Tight';
+    src: url('./fonts/InterTight-Italic-VariableFont_wght.ttf') format("truetype");
+    font-style: italic;
+    font-display: auto;
+}
+
+.react_root{
+}
+
+:global(nav) {
+    height: 48px;
+}
+
+nav + *{
+    margin-top: 0.5rem;
+    height: calc(100vh - 0.5rem);
+    overflow: auto;
+}
+
+@media(min-width: 992px) {
+    nav+* {
+            margin-top: 48px;
+            height: calc(100vh - 48px);
+    }
+}
+
+:global(body){
+    margin: 0;
+    overflow: hidden; 
+    --bs-font-sans-serif: 'Inter Tight',
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        "Noto Sans",
+        "Liberation Sans",
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --bs-body-font-family: var(--bs-font-sans-serif);
+}
+
+:global(iframe){
+    border: none;
+}
+
+b {
+    font-style: normal;
+    font-weight: 600;
+    background-color: var(--highlight-bg);
+    color: var(--bs-body-bg);
+    padding: 0.1rem 0.3rem 0.2rem 0.3rem
+}
+
+h2 {
+    font-weight: 700;
+}
+
+:global(.log_block) {
+    padding: 0.05rem 0.2rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
+:global(.log_warning) {
+    background-color: var(--bs-warning);
+    
+}
+
+:global(.log_error) {
+    background-color: var(--bs-danger);
+    color: #fff;
+}
+
+:global(.input-group-text) {
+    border-right: none !important;
+}
+
+:global(.input-group)>input[type=text] + :global(.btn) {
+    margin-left: 0 !important;
+    border-left: none !important;
+}
+
+:global(.input-group) > input[type=text] {
+    margin-left: 0 !important;
+    background-color: transparent;
+}
+
+:global(.input-group) > input[type=text]:focus {
+    box-shadow: 0 -0.2rem 0 0 var(--bs-info) inset;
+        -webkit-box-shadow: 0 -0.2rem 0 0 var(--bs-info) inset;
+        -moz-box-shadow: 0 -0.2rem 0 0 var(--bs-info) inset;
+}

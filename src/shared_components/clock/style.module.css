@@ -1,0 +1,5 @@
+.clock {
+    display: inline-flex;
+    font-family: var(--bs-font-monospace);
+    vertical-align: middle;
+}

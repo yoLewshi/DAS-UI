@@ -1,0 +1,19 @@
+.grid> :global(.row),
+.loggers_col,
+.details_col {
+    height: 100%;
+    max-height: 100%;
+}
+
+.loggers_col {
+    overflow-y: auto;
+}
+
+.logger_table td {
+    cursor: pointer;
+}
+
+.ip_input {
+    display: inline-flex;
+    max-width: 32rem;
+}

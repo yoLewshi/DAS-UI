@@ -1,0 +1,19 @@
+:global(.monaco-diff-editor .editor.original) {
+    display: none;
+}
+
+:global(.monaco-diff-editor .editor.modified) {
+    left: 0 !important;
+}
+
+:global(.monaco-diff-editor.vs .diffOverview) {
+    background: transparent !important;
+}
+
+.change_label {
+    height: 2rem;
+}
+
+:global(.react-monaco-editor-container) {
+    height: calc(100% - 2rem) !important;
+}

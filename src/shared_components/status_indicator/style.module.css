@@ -1,0 +1,64 @@
+.status_indicator {
+    --bs-border-width: 0.2rem;
+    --bs-card-border-radius: 0.5rem;
+    --bs-border-opacity: 0.75;
+    width: 20rem;
+}
+
+.bars_hidden.status_indicator {
+    width: 8rem;
+}
+
+.status_blocks {
+    display: inline-flex;
+    height: 3rem;
+    width: 60%;
+    vertical-align: middle;
+}
+
+.status_label {
+    position: relative;
+    display: inline-block;
+    height: 3rem;
+    width: 40%;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0.5rem 1rem;
+}
+
+.status_label[data-bs-toggle] {
+    cursor: help;
+}
+
+.stage{
+    display: inline-block;
+    height: 100%;
+    background-color: var(--highlight-bg);
+    min-width: 1rem;
+}
+
+.failed_stage {
+    background-color: transparent;
+    border: 0.2rem solid var(--highlight-bg);
+}
+
+.stage:nth-child(1) {
+    flex-grow: 0;
+}
+
+.stage:nth-child(2) {
+    flex-grow: 2;
+    /*width: 6rem;*/
+}
+.stage:nth-child(3) {
+    flex-grow: 3;
+    /*width: 10rem;*/
+}
+.stage:nth-child(4) {
+    flex-grow: 4;
+    /*width: 16rem;*/
+}
+
+.bars_hidden > .status_label {
+    width: 100%;
+}

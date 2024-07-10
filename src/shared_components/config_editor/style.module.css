@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    --bs-border-width: 0.2rem;
+}
+
+.edit_config_select {
+    width: 18rem;
+    flex-grow: 0;
+}
+
+.edit_config_link {
+    margin-left: 1rem;
+}
+
+.edit_config_link i {
+    margin-top: -4px;
+}
+
+.config_json {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.config_json > pre {
+    height: 100%;
+    overflow: auto;
+    border: var(--bs-border-width) dashed var(--bs-border-color);
+}

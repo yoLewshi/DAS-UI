@@ -1,0 +1,9 @@
+:global(.navbar) {
+    display: none !important;
+}
+
+@media(max-width: 992px) {
+    .login_btn {
+        width: 100%;
+    }
+}

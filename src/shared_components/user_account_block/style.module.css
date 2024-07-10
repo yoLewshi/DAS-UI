@@ -1,0 +1,10 @@
+.user_account_block {
+    display: inline-flex;
+    align-items: center;
+    margin-right: -0.2rem;
+    padding-bottom: 0.5rem;
+}
+
+.logout_button {
+    width: 5rem;
+}

@@ -1,0 +1,100 @@
+.dropdown-menu {
+    --bs-dropdown-border-color: rgba(0,0,0,0);
+}
+
+.navbar {
+    --bs-navbar-padding-y: 0.25rem;
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background-color: var(--bs-body-bg);
+    }
+}
+
+:root {
+    --bs-info: #30BEFF;
+    --highlight-bg: #212529;
+    --secondary-highlight-bg: #373b3e;
+    --highlight-text-color: #fff;
+}
+
+.nav, .nav-underline {
+    --bs-nav-link-hover-color: var(--highlight-bg);
+    --bs-nav-link-color: var(--bs-nav-link-hover-color);
+    --bs-nav-underline-border-width: 0.4rem;
+    --bs-nav-link-padding-y: 0.25rem;
+}
+
+.nav-underline .nav-link.active,
+.nav-underline .show>.nav-link {
+    font-weight: unset;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.navbar-toggler {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    z-index: 5;
+    border-radius: 0;
+}
+
+.offcanvas {
+    --bs-offcanvas-width: 40rem;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--secondary-highlight-bg);
+    --bs-dropdown-border-radius: 0;
+}
+
+.table {
+    --bs-table-active-bg: var(--secondary-highlight-bg);
+}
+
+.form-select, input[type="file"], .input-group {
+    --bs-border-color: var(--secondary-highlight-bg);
+    --bs-border-radius: 0;
+}
+
+input[type="file"], .input-group {
+    --bs-border-width: 0.2rem;
+}
+
+.form-control {
+    --bs-border-radius: 0;
+}
+
+.form-control:focus {
+    color: initial;
+    background-color: initial;
+    border-color: initial;
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn, .input-group .btn{
+    border-radius: 0;
+}
+
+.toast {
+    --bs-toast-bg: var(--highlight-bg);
+    --bs-toast-border-widt: 0;
+    --bs-toast-border-radius: 0;
+    --bs-toast-box-shadow: none;
+    --bs-toast-color: #fff;
+    --bs-btn-close-color: #fff;
+}
+
+.bi-question-square-fill {
+    cursor: help;
+    opacity: 0.2;
+}
+
+.bi-question-square-fill:hover {
+    opacity: 1;
+}

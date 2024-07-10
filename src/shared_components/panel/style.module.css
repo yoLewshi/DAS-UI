@@ -1,0 +1,15 @@
+.panel {
+    --bs-border-width: 0.2rem;
+    --bs-card-border-radius: 0;
+    --bs-border-opacity: 0.75;
+    display: inline-flex;
+}
+
+.panel > :global(.card-header) {
+    --bs-card-border-color: rgba(0, 0, 0, 0);
+    padding-top: 1rem;
+}
+
+.panel> :global(.card-body) {
+    min-height: 0;
+}

@@ -1,0 +1,74 @@
+.header {
+    display: flex;
+}
+
+.header > * {
+    flex-grow: 0;
+}
+
+.header > *:last-child {
+    flex-grow: 1;
+}
+
+.logger_name {
+    display: inline-block;
+    min-width: 6rem;
+    padding: 0rem 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+    line-height: 150%;
+    text-align: center;
+    font-style: italic;
+}
+
+.details_panel {
+    width: 100%;
+    height: calc(100% - 0.5rem);
+    margin-top: 0 !important;
+}
+
+.details_panel :global(.card-body){
+    padding-top: 0;
+
+}
+
+.details_content, .details_content > :global(.row) {
+    height: 100%;
+}
+
+.details_content {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.logs_col, .fields_col {
+    height: 100%;
+    max-height: 100%;
+}
+
+.fields_col {
+    max-height: 100%;
+    overflow-y: hidden;
+}
+
+.left_pane {
+    display: flex;
+    flex-direction: column;
+}
+
+.left_pane > :nth-child(1) {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.logs_output {
+    min-height: 0;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.logs_output > *{
+    min-height: calc(50% - 0.25rem);
+    max-height: calc(50% - 0.25rem);
+}
+

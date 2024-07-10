@@ -1,0 +1,124 @@
+.grid > :global(.row), .loggers_col, .details_col {
+    height: 100%;
+    max-height: 100%;
+}
+
+.loggers_col {
+    overflow-y: auto;
+}
+
+.loggers_col th:nth-child(4), .loggers_col td:nth-child(4),
+.loggers_col th:nth-child(5), .loggers_col td:nth-child(5) {
+    width: 2rem;
+    min-width: 2rem;
+}
+
+.active_logger_icon, 
+.cruise_logger_icon {
+
+}
+
+
+/* logger statuses */
+
+.low_warning_rate td:nth-child(2) > div, .low_warning_rate td:nth-child(3) > div, 
+.high_warning_rate td:nth-child(2) > div, .high_warning_rate td:nth-child(3)>div,
+.full_warning_rate td:nth-child(2) > div, .full_warning_rate td:nth-child(3)>div,
+.low_error_rate td:nth-child(2) > div, .low_error_rate td:nth-child(3)>div,
+.high_error_rate td:nth-child(2) > div, .high_error_rate td:nth-child(3)>div,
+.full_error_rate td:nth-child(2) > div, .full_warning_rate td:nth-child(3)>div,
+.outdated td:nth-child(2)>div, .outdated td:nth-child(3)>div {
+    background-color: var(--bs-body-bg);
+}
+
+/*
+
+<svg id="stripes-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs>
+<pattern id="svg-stripes-pattern-43672" patternTransform="rotate(135)" width="100%" height="73" x="0" y="0" patternUnits="userSpaceOnUse"><animate attributeName="y" begin="0s" dur="800s" from="5000px" to="0" repeatCount="indefinite" fill="freeze"></animate><g>
+<rect x="0" y="0" width="100%" height="40" fill="rgba(111, 113, 116, 0.3)"></rect>
+<rect x="0" y="40" width="100%" height="30" fill="rgba(255, 255, 255, 0.3)"></rect>
+</g></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#svg-stripes-pattern-43672)"></rect></svg>
+
+<svg id="stripes-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs>
+<pattern id="svg-stripes-pattern" patternTransform="rotate(135)" width="100%" height="73" x="0" y="0" patternUnits="userSpaceOnUse"><animate attributeName="y" begin="0s" dur="800s" from="5000px" to="0" repeatCount="indefinite" fill="freeze"></animate><g>
+<rect x="0" y="0" width="100%" height="30" fill="rgba(220,53,69,1)"></rect>
+<rect x="0" y="30" width="100%" height="4" fill="rgba(255,193,7,1)"></rect>
+<rect x="0" y="34" width="100%" height="30" fill="rgba(255,255,255,0.3)"></rect></g></pattern></defs>
+<rect x="0" y="0" width="100%" height="100%" fill="url(#svg-stripes-pattern)"></rect></svg>
+
+light grey - <rect x="0" y="0" width="100%" height="30" fill="rgba(111, 113, 116, 0.3)"></rect>
+warning - <rect x="0" y="0" width="100%" height="30" fill="rgba(255, 193, 7, 1)"></rect>
+danger - <rect x="0" y="30" width="100%" height="4" fill="rgba(220, 53, 69, 1)"></rect>
+
+*/
+
+
+.low_warning_rate {
+    --bs-table-bg: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%3Cpattern%20id%3D'svg-stripes-pattern-20578'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'71'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'1100s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'40'%20fill%3D'\
+        rgba(111%2C%20113%2C%20116%2C%200.3)'%3E%3C%2Frect%3E%3Crect%20x%3D'0'%20y%3D'40'%20width%3D'100%25'%20height%3D'30'%20fill%3D'\
+        rgba(255%2C%20255%2C%20255%2C%201)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-20578)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%20%3Cpattern%20id%3D'svg-stripes-pattern-43672'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'73'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'1100s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(111%2C113%2C116%2C0.3)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'30'%20width%3D'100%25'%20height%3D'4'%20fill%3D'rgba(255%2C193%2C7%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'34'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C255%2C255%2C0.3)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-43672)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+}
+
+.high_warning_rate {
+    --bs-table-bg: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%3Cpattern%20id%3D'svg-stripes-pattern-20517'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'71'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'700s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'40'%20fill%3D'\
+    rgba(255%2C%20193%2C%207%2C%201)'%3E%3C%2Frect%3E%3Crect%20x%3D'0'%20y%3D'40'%20width%3D'100%25'%20height%3D'30'%20fill%3D'\
+    rgba(255%2C%20255%2C%20255%2C%201)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-20517)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%20%3Cpattern%20id%3D'svg-stripes-pattern'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'73'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'700s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C193%2C7%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'30'%20width%3D'100%25'%20height%3D'4'%20fill%3D'rgba(255%2C193%2C7%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'34'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C255%2C255%2C0.3)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+}
+
+.full_warning_rate {
+    --bs-table-bg: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%3Cpattern%20id%3D'svg-stripes-pattern-20517'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'71'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'400s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'40'%20fill%3D'\
+        rgba(255%2C%20193%2C%207%2C%201)'%3E%3C%2Frect%3E%3Crect%20x%3D'0'%20y%3D'40'%20width%3D'100%25'%20height%3D'30'%20fill%3D'\
+        rgba(255%2C%20255%2C%20255%2C%201)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-20517)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%20%3Cpattern%20id%3D'svg-stripes-pattern'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'73'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'400s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(220%2C53%2C69%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'30'%20width%3D'100%25'%20height%3D'4'%20fill%3D'rgba(255%2C193%2C7%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'34'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C255%2C255%2C0.3)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+}
+
+.outdated::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    /*width: 1.5rem;*/
+    width: 4.2rem;
+    --bs-table-bg: transparent;
+    /*background: radial-gradient(farthest-side, var(--bs-danger) 96%, transparent) -1rem 50%/1.5rem 2rem;*/
+    background: radial-gradient(farthest-side, var(--bs-danger) 96%, transparent) 100% 50%/3rem 3rem;
+    background-repeat: no-repeat;
+}
+
+.low_error_rate {
+    --bs-table-bg: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%3Cpattern%20id%3D'svg-stripes-pattern-20578'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'71'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'800s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'40'%20fill%3D'\
+    rgba(111%2C%20113%2C%20116%2C%200.3)'%3E%3C%2Frect%3E%3Crect%20x%3D'0'%20y%3D'40'%20width%3D'100%25'%20height%3D'30'%20fill%3D'\
+    rgba(255%2C%20255%2C%20255%2C%201)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-20578)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%20%3Cpattern%20id%3D'svg-stripes-pattern-43672'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'73'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'800s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(111%2C%20113%2C%20116%2C%200.3)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'30'%20width%3D'100%25'%20height%3D'4'%20fill%3D'rgba(220%2C%2053%2C%2069%2C%201)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'34'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C%20255%2C%20255%2C%200.3)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-43672)'%3E%3C%2Frect%3E%3C%2Fsvg%3E")
+}
+
+
+.high_error_rate {
+    --bs-table-bg: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%3Cpattern%20id%3D'svg-stripes-pattern-20517'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'71'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'400s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'40'%20fill%3D'\
+        rgba(255%2C%20193%2C%207%2C%201)'%3E%3C%2Frect%3E%3Crect%20x%3D'0'%20y%3D'40'%20width%3D'100%25'%20height%3D'30'%20fill%3D'\
+        rgba(255%2C%20255%2C%20255%2C%201)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-20517)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%20%3Cpattern%20id%3D'svg-stripes-pattern'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'73'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'400s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C193%2C7%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'30'%20width%3D'100%25'%20height%3D'4'%20fill%3D'rgba(220%2C53%2C69%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'34'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C255%2C255%2C0.3)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+}
+
+.full_error_rate {
+    --bs-table-bg: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%3Cpattern%20id%3D'svg-stripes-pattern-20517'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'71'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'100s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'40'%20fill%3D'\
+            rgba(220%2C%2053%2C%2069%2C%201)'%3E%3C%2Frect%3E%3Crect%20x%3D'0'%20y%3D'40'%20width%3D'100%25'%20height%3D'30'%20fill%3D'\
+            rgba(255%2C%20255%2C%20255%2C%201)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern-20517)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+
+    background-image: url("data:image/svg+xml,%3Csvg%20id%3D'stripes-svg'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'100%25'%20height%3D'100%25'%3E%3Cdefs%3E%20%3Cpattern%20id%3D'svg-stripes-pattern'%20patternTransform%3D'rotate(135)'%20width%3D'100%25'%20height%3D'73'%20x%3D'0'%20y%3D'0'%20patternUnits%3D'userSpaceOnUse'%3E%3Canimate%20attributeName%3D'y'%20begin%3D'0s'%20dur%3D'100s'%20from%3D'5000px'%20to%3D'0'%20repeatCount%3D'indefinite'%20fill%3D'freeze'%3E%3C%2Fanimate%3E%3Cg%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(220%2C53%2C69%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'30'%20width%3D'100%25'%20height%3D'4'%20fill%3D'rgba(220%2C53%2C69%2C1)'%3E%3C%2Frect%3E%20%3Crect%20x%3D'0'%20y%3D'34'%20width%3D'100%25'%20height%3D'30'%20fill%3D'rgba(255%2C255%2C255%2C0.3)'%3E%3C%2Frect%3E%3C%2Fg%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%20%3Crect%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'url(%23svg-stripes-pattern)'%3E%3C%2Frect%3E%3C%2Fsvg%3E");
+}

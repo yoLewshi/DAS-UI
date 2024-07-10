@@ -1,0 +1,49 @@
+.element {
+    padding: 0.5rem;
+    background-color: var(--highlight-bg);
+    color: var(--highlight-text-color);
+}
+
+.element:nth-child(n+2) {
+    margin-top: 1rem;
+}
+
+.config_row {
+    display: flex;
+}
+
+h3 {
+    display: inline-block;
+    padding: 0.3rem;
+    margin-bottom: 0;
+    background-color: var(--highlight-text-color);
+    color: var(--highlight-bg);
+}
+
+h3 + .config_row {
+    margin-top: 0.5rem;
+}
+
+h3 ~ .config_row > div:nth-child(1) {
+    flex: 0 0 0%;
+}
+
+h3 ~ .config_row > div:nth-child(2) {
+    flex: 1 0 0%;
+}
+
+.config_row .config_row:last-child:not(:first-child) {
+   margin-top: 1rem;
+}
+
+.element_description_icon {
+
+}
+
+.element_description {
+    --bs-tooltip-max-width: 30rem;
+}
+
+.element b {
+    padding: 0;
+}

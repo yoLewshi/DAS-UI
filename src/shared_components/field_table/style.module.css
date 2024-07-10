@@ -1,0 +1,30 @@
+.field_description {
+
+}
+
+.device_type {
+    height: 39px;
+    line-height: 39px;
+}
+
+.fields_table {
+    position: relative;
+    overflow-y: auto;
+    max-height: 100%;
+    height: calc(100% - 3rem);
+}
+
+.fields_table:global(.empty)::after {
+    content: "No field metadata to show\a\a Fields defined in the logger config will show after at least 1 record has been parsed";
+    position: absolute;
+    display: inline-block;
+    top: 5rem;
+    width: 70%;
+    margin-left: 15%;
+    white-space: pre-wrap;
+    text-align: center;
+}
+
+.fields_table th:last-child, .fields_table td:last-child {
+    width: 2rem;
+}

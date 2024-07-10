@@ -1,0 +1,54 @@
+.DAS_table {
+
+}
+
+.DAS_table tbody {
+    position: relative;
+}
+
+.DAS_table tr {
+    position: relative;
+}
+
+.DAS_table td{
+    padding: 0.25rem !important;
+}
+
+.DAS_table th {
+    padding: 0.25rem 0.5rem !important;
+}
+
+.DAS_table td > div {
+    padding: 0 0.25rem !important;
+    position: relative;
+    z-index: 2;
+}
+
+.DAS_table :global(.table-active):not(:hover) > td {
+    box-shadow: none;
+}
+
+.DAS_table :global(.table-active) > td:not(.select_cell) > div {
+    box-shadow: none;
+    background: var(--bs-table-active-bg);
+    color: #fff;
+    padding: 0 0.5rem;
+}
+
+.DAS_table .select_cell {
+    padding-right: 0 !important;
+    width: 1rem;
+    text-align: center;
+}
+
+.DAS_table .select_cell > div {
+    padding: 0 !important;
+}
+
+.DAS_table th.select_cell i {
+    color: transparent;
+}
+
+.selectable tr {
+    cursor: pointer;
+}

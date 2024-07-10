@@ -1,0 +1,60 @@
+.grid> :global(.row) {
+    height: 100%;
+    max-height: 100%;
+}
+
+.details_panel, .help_panel {
+    height: calc(100% - 1rem);
+    margin: 0 !important;
+}
+
+.middle_col {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.config_tab {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.logger_name {
+    display: inline-block;
+    min-width: 6rem;
+    padding: 0rem 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+    line-height: 150%;
+    text-align: center;
+    font-style: italic;
+    vertical-align: bottom;
+}
+
+.tabs {
+    display: inline-flex;
+}
+
+.tabs :global(.highlight)::before {
+    content: "Active";
+    position: absolute;
+    top: -0.5rem;
+    width: 100%;
+    padding: 0.1rem 0.3rem;
+    background-color: var(--secondary-highlight-bg);
+    color: var(--highlight-text-color);
+    font-size: 0.5rem;
+    font-weight: 600;
+}
+
+.empty_section {
+    padding: 0.5rem;
+    border: var(--bs-border-width) dashed var(--bs-border-color);
+}
+
+.empty_section:nth-child(n+1) {
+    margin-top: 1rem;
+}
+
+.definition_table td {
+    cursor: pointer;
+}
