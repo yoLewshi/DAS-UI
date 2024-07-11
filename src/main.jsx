@@ -8,8 +8,6 @@ import './style/bootstrap/bootstrap-icons.css';
 import './style/bootstrap/bootstrap.min.css';
 import './style/bootstrap/bootstrap-theme.css';
 
-import './style/feeder.css';
-
 import './style/globalStyles.module.css';
 
 

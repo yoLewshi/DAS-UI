@@ -1,32 +1,40 @@
+const API_URL = import.meta.env.VITE_DJANGO_SERVER_API;
+
 const getAPI = function(url, callback) {
-     return fetch(url).then(parseResponse).then(callback).catch(handleErrors);
+     return fetch(`${API_URL}${url}`, {headers: {"Authorization": `Token ${getCookie("DRF_Token")}`}}).then(parseResponse).then(callback).catch(handleErrors);
 }
 
 const postAPI = function(url, data, callback) {
-    return fetch(url, {
+    const headers = {
+        "Content-Type": "application/json",
+    }
+
+    const cookieValue = getCookie("DRF_Token");
+    if(cookieValue) {
+        headers["Authorization"] = `Token ${cookieValue}`;
+    }
+
+    return fetch(`${API_URL}${url}`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": getDjangoCSRFCookie('csrftoken'),
-             
-        },
-        mode: "same-origin",
+        headers: headers,
+        mode: "cors",
         body: JSON.stringify(data)
     }).then(parseResponse).then(callback).catch(handleErrors);
 }
 
 const postForm = function(url, formData, callback) {
-    return fetch(url, {
+    return fetch(`${API_URL}${url}`, {
         method: "POST",
         headers: {
-            "X-CSRFToken": getDjangoCSRFCookie("csrftoken"),
+            "Authorization": getCookie("DRF_Token"),
         },
-        mode: "same-origin",
+        credentials: "include",
+        mode: "cors",
         body: formData
     }).then(parseResponse).then(callback).catch(handleErrors);
 }
 
-function getDjangoCSRFCookie(name) {
+function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
@@ -42,8 +50,18 @@ function getDjangoCSRFCookie(name) {
     return cookieValue;
 }
 
+function storeCookie(name, value) {
+    document.cookie = `${name}=${value}`;
+}
+
 const parseResponse = function(response) {
-    return response.json();
+    return response.json().then((parsed) => {
+        if(parsed?.token) {
+            storeCookie("DRF_Token", parsed.token);
+        }
+
+        return parsed;
+    });
 }
 
 const handleErrors = function(error) {

@@ -21,6 +21,13 @@ function Home(props) {
 
     const headers = ["Logger", "Active Config", "\u00A0", "\u00A0"];
 
+    function onLoad() {
+        
+    }
+
+    useEffect(onLoad, []);
+
+
     function loggerSelected(row) {
         setSelectedLogger(row[0]);
     }
@@ -42,19 +49,23 @@ function Home(props) {
         if(JSONstringifyOrder(updatedLoggers) === JSONstringifyOrder(loggersRef.current))
         {
             // avoid re-render of child components
+            console.log("skipping re-render")
         }
         else if(!Object.keys(updatedLoggers).length) {
             // cache server empty, shouldn't happen in production
+            console.log("empty");
         }
         else
         {
             // don't delete newly added loggers without cache data
             loggersRef.current = Object.assign({}, loggers  ?? {}, updatedLoggers);
+            console.log(loggersRef.current);
             setLoggers(loggersRef.current);
         }
     }
 
     function onDetailedLoggerStatus(socketResponse) {
+        
         const statusDetails = {};
         Object.keys(socketResponse).map((key) => {
             if(key.indexOf("stderr:logger:") == 0) {

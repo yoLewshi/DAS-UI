@@ -11,7 +11,7 @@ import {checkConnection} from '../../shared_methods/connection';
 
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
-console.log(styles);
+
 let cx = classNames.bind(styles);
 
 

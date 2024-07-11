@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
 import { addMessage, GlobalContext } from '../../shared_components/globalContext';
-import {postForm} from '../../shared_methods/api';
+import {postAPI} from '../../shared_methods/api';
 
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
 let cx = classNames.bind(styles);
+
+import logoURL from "../../assets/logo.svg";
 
 function Login(props) {
 
@@ -15,14 +17,15 @@ function Login(props) {
         const username = document.getElementById("Username").value;
         const password = document.getElementById("Password").value;
 
-        const formData = new FormData();
-        formData.append("username", username);
-        formData.append("password", password);
-        formData.append("redirect_to", redirectTo);
+        const formData = {
+            "username": username,
+            "password": password,
+            "redirect_to": redirectTo
+        }
 
-        postForm("/login_new/", formData, (response) => {
-            if(response.redirect) {
-                window.location.replace(response.redirect);
+        postAPI("/obtain-auth-token/", formData, (response) => {
+            if(response.token) {
+                window.location.replace(redirectTo || "/");
             } else {
                 addMessage(messagesRef, setMessages, response.message, "error");
             }
@@ -33,7 +36,7 @@ function Login(props) {
         <div className="container-fluid">
             <div className="row">
                 <div className="col offset-4 col-sm-4">
-                    <img src="/static/images/logo.svg" className="img-fluid mx-auto d-block" alt="DAS logo"></img>
+                    <img src={logoURL} className="img-fluid mx-auto d-block" alt="DAS logo"></img>
                 </div>
             </div>
             <div className="row mt-4">

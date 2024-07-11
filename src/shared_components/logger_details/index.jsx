@@ -102,6 +102,8 @@ function LoggerDetails(props) {
     }
 
     function parseLoggerResponse(message, messageType){
+
+        console.log(message);
         if(messageType == "describe"){
             parseDescribeResponse(message);
             return
