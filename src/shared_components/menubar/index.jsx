@@ -19,7 +19,7 @@ function Menubar(props) {
 
     const {page} = props;
     const context = useContext(GlobalContext);
-    const {permissions} = context.global || {permissions:{}};
+    const permissions = context.global.permissions || {};
     const seeUtilities = permissions.cruise_config || permissions.udp || permissions.loggers;
 
     const { setMessages, messagesRef } = useContext(GlobalContext);

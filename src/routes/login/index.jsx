@@ -9,9 +9,13 @@ let cx = classNames.bind(styles);
 import logoURL from "../../assets/logo.svg";
 
 function Login(props) {
-
+    
     const {redirectTo} = props;
-    const { setMessages, messagesRef } = useContext(GlobalContext);
+    const { setMessages, messagesRef, global, setGlobal } = useContext(GlobalContext);
+
+    if(global.authToken) {
+        window.location.replace(redirectTo || "/");
+    }
 
     function submitLogin() {
         const username = document.getElementById("Username").value;
@@ -25,6 +29,7 @@ function Login(props) {
 
         postAPI("/obtain-auth-token/", formData, (response) => {
             if(response.token) {
+                setGlobal(Object.assign({}, global, {authToken: response.token}));
                 window.location.replace(redirectTo || "/");
             } else {
                 addMessage(messagesRef, setMessages, response.message, "error");

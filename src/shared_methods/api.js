@@ -1,7 +1,15 @@
 const API_URL = import.meta.env.VITE_DJANGO_SERVER_API;
 
 const getAPI = function(url, callback) {
-     return fetch(`${API_URL}${url}`, {headers: {"Authorization": `Token ${getCookie("DRF_Token")}`}}).then(parseResponse).then(callback).catch(handleErrors);
+
+    const token = getCookie("DRF_Token");
+
+    if(!token) {
+        console.error(`Not authenticated to make call: ${url}`);
+        return Promise.resolve();
+    }
+
+    return fetch(`${API_URL}${url}`, {headers: {"Authorization": `Token ${getCookie("DRF_Token")}`}}).then(parseResponse).then(callback).catch(handleErrors);
 }
 
 const postAPI = function(url, data, callback) {
@@ -51,7 +59,24 @@ function getCookie(name) {
 }
 
 function storeCookie(name, value) {
-    document.cookie = `${name}=${value}`;
+    const dateObj = new Date();
+    dateObj.setDate(dateObj.getDate() + 365);
+    const yearLoggedIn = dateObj.toUTCString();
+    console.log(`${name}=${value}; expires=${yearLoggedIn};`)
+
+    document.cookie = `${name}=${value}; expires=${yearLoggedIn}; path=/;`;
+}
+
+function deleteCookie(name) {
+   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}
+
+function hasAuth() {
+    return getCookie("DRF_Token") != null;
+}
+
+function clearAuth() {
+    deleteCookie("DRF_Token");
 }
 
 const parseResponse = function(response) {
@@ -71,5 +96,7 @@ const handleErrors = function(error) {
 export {
     getAPI,
     postAPI,
-    postForm
+    postForm,
+    hasAuth,
+    clearAuth
 }

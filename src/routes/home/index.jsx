@@ -8,11 +8,12 @@ import { websocket } from '../../shared_methods/websocket';
 import styles from "./style.module.css";
 
 import classNames from 'classnames/bind';
+import { getAPI } from '../../shared_methods/api';
 let cx = classNames.bind(styles);
 
-function Home(props) {
-    const { cruiseSpecificLoggers } = props;
-    const [loggers, setLoggers] = useState(props.loggers || {});
+function Home() {
+    const [cruiseSpecificLoggers, setCruiseSpecificLoggers] = useState([]);
+    const [loggers, setLoggers] = useState({});
     const loggersRef = useRef();
     const [selectedLogger, setSelectedLogger] = useState(null);
     const [loggerRows, setLoggerRows] = useState([]);
@@ -22,7 +23,11 @@ function Home(props) {
     const headers = ["Logger", "Active Config", "\u00A0", "\u00A0"];
 
     function onLoad() {
-        
+        getAPI("/cruise-configuration/").then((response) => {
+            setCruiseSpecificLoggers(response.configuration?.cruise_specific_loggers);
+            setLoggers(response.configuration?.loggers);
+            
+        })
     }
 
     useEffect(onLoad, []);

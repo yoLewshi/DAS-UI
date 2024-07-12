@@ -1,4 +1,5 @@
-import React, { createContext, useRef, useState } from 'react'
+import React, { createContext, useEffect, useRef, useState } from 'react'
+import { getAPI } from '../shared_methods/api';
 
 export const GlobalContext = createContext()
 
@@ -13,12 +14,23 @@ export function addMessage(messagesRef, setFn, messageContent, messageType) {
 
 export function GlobalProvider(props) {
 
-	const {global} = props;
+	const [global, setGlobal] = useState({});
 	const [messages, setMessages] = useState(initialState);
 	const messagesRef = useRef(initialState);
 
+	function getAuthDetails() {
+		getAPI("/get-auth-user").then((response) => {
+				if(response?.user) {
+				const updatedProps = Object.assign({}, global, {username: response.user.username, permissions: response.user.user_permissions});
+				setGlobal(updatedProps);
+			}
+		})
+	}
+
+	useEffect(getAuthDetails, []);
+
 	return (
-		<GlobalContext.Provider value={{ messages, setMessages, messagesRef, global}}>
+		<GlobalContext.Provider value={{ messages, setMessages, messagesRef, global, setGlobal}}>
 			{props.children}
 		</GlobalContext.Provider>
 	)

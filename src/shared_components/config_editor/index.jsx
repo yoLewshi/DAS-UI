@@ -22,12 +22,12 @@ function ConfigEditor(props) {
     const { setMessages, messagesRef } = useContext(GlobalContext)
 
     function getLoggerConfig(callback) {
-        const path = isCruise ? "/cruise/get_config" : `/logger/get_config/${loggerName}`;
+        const path = isCruise ? "/cruise/get_config" : `/edit-logger-config/${loggerName}`;
         return getAPI(path, callback)
     }
 
     function updateSelectedConfig(configName) {
-        const path = isCruise ? "/cruise/set_config/" : `/logger/set_config/${loggerName}`;
+        const path = isCruise ? "/cruise/set_config/" : `/edit-logger-config/${loggerName}`;
         return postAPI(path, {"selectedConfig": configName}, onConfigUpdated.bind(null, loggerName, configName))
     }
 
