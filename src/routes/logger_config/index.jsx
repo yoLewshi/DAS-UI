@@ -7,11 +7,12 @@ import {getAPI} from '../../shared_methods/api';
 
 import styles from "./style.module.css";
 import classNames from 'classnames/bind';
+import { useParams } from 'react-router-dom';
 let cx = classNames.bind(styles);
 
 function LoggerConfig(props) {
 
-    const { loggerName } = props;
+    const { loggerName } = useParams();
 
     const [tabViews, setTabViews] = useState([]);
     const [config, setConfig] = useState({});
@@ -19,7 +20,7 @@ function LoggerConfig(props) {
     const [definitionRows, setDefinitionRows] = useState([]);
 
     function getLoggerConfig(callback) {
-        return getAPI(`/logger/get_config/${loggerName}`, callback)
+        return getAPI(`/edit-logger-config/${loggerName}`, callback)
     }
 
     useEffect(() =>{
@@ -28,13 +29,13 @@ function LoggerConfig(props) {
 
     function parseConfig(loggerConfig) {
         setConfig(loggerConfig);
-        setSelectedConfig(loggerConfig.fullConfig[loggerConfig.selectedConfig]); 
+        setSelectedConfig(loggerConfig.full_config[loggerConfig.selectedConfig]); 
         buildTabs(loggerConfig);
         buildDefinitionFileTable(loggerConfig);
     }
 
     function buildTabs(loggerConfig) {
-        setTabViews(Object.keys(loggerConfig.fullConfig).map((configName) => {
+        setTabViews(Object.keys(loggerConfig.full_config).map((configName) => {
             
             return {
                 active: configName === loggerConfig.selectedConfig,
@@ -46,7 +47,7 @@ function LoggerConfig(props) {
     }
 
      function onTabChange(targetId) {      
-        setSelectedConfig(config.fullConfig[targetId]); 
+        setSelectedConfig(config.full_config[targetId]); 
      }
 
      function buildDefinitionFileTable(loggerConfig) {

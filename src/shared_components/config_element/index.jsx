@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {CONFIG_HELP_TEXT} from "../../shared_methods/constants";
-var classNames = require("classnames/bind");
+import classNames from 'classnames/bind';
 import styles from "./style.module.css";
 let cx = classNames.bind(styles);
 

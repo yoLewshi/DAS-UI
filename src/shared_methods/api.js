@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_DJANGO_SERVER_API;
+const API_URL = `${import.meta.env.VITE_DJANGO_SERVER}/api`;
 
 const getAPI = function(url, callback) {
 

@@ -8,7 +8,7 @@ function OpenRVDAS(props) {
 
     return (  
         <>
-            <iframe className={styles.openrvdas_iframe} src={`http://${hostname}/index_native`}/>
+            <iframe className={styles.openrvdas_iframe} src={import.meta.env.VITE_DJANGO_SERVER}/>
         </>
     )
 };

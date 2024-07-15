@@ -11,6 +11,9 @@ import PrivateRoute from './routes/privateRoute';
 
 const Home = lazy(() => import('./routes/home'));
 const Login = lazy(() => import('./routes/login'));
+const LoggerConfig = lazy(() => import('./routes/logger_config'));
+const EditYaml = lazy(() => import('./routes/edit_yaml'));
+const OpenRVDAS = lazy(() => import('./routes/openrvdas'));
 
 function App() {
   const page ="/";
@@ -23,6 +26,9 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<PrivateRoute component={Home}/>} />
+            <Route path="/logger/config/:loggerName" element={<LoggerConfig />} />
+            <Route path="/edit_yaml" element={<EditYaml />} />
+            <Route path="/native" element={<OpenRVDAS />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

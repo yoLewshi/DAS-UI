@@ -54,7 +54,6 @@ function Home() {
         if(JSONstringifyOrder(updatedLoggers) === JSONstringifyOrder(loggersRef.current))
         {
             // avoid re-render of child components
-            console.log("skipping re-render")
         }
         else if(!Object.keys(updatedLoggers).length) {
             // cache server empty, shouldn't happen in production

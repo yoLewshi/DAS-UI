@@ -20,6 +20,15 @@ function Menubar(props) {
     const {page} = props;
     const context = useContext(GlobalContext);
     const permissions = context.global.permissions || {};
+
+    //TODO: add permissions to django and remove these
+    permissions.home = true;
+    permissions.loggers = true;
+    permissions.cruise_config = true;
+    permissions.udp = true;
+    permissions.native = true;
+    permissions.grafana = true;
+
     const seeUtilities = permissions.cruise_config || permissions.udp || permissions.loggers;
 
     const { setMessages, messagesRef } = useContext(GlobalContext);
@@ -98,7 +107,7 @@ function Menubar(props) {
                                     {permissions.loggers && buildDropdownItem("/loggers/", "Manage Loggers", "loggers")}
                                     {permissions.udp && buildDropdownItem("/udp/", "UDP Subscriptions", "udp_manager")}
                                     {permissions.cruise_config && buildDropdownItem("/cruise/config", "Cruise Config", "cruise_config")}
-                                    {permissions.native && buildDropdownItem("/index_old", "Native OpenRVDAS", "openrvdas")}
+                                    {permissions.native && buildDropdownItem("/native", "Native OpenRVDAS", "openrvdas")}
                                 </ul>
                             </li>
                         }

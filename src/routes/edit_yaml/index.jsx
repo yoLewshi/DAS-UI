@@ -7,11 +7,12 @@ import {postAPI, postForm} from '../../shared_methods/api';
 
 import styles from "./style.module.css";
 import classNames from 'classnames/bind';
+import { useSearchParams } from 'react-router-dom';
 let cx = classNames.bind(styles);
 
-function EditYaml(props) {
+function EditYaml() {
 
-    const { filepath } = props;
+    const { file } = useSearchParams();
     const editor = useRef(null);
     const [fileContent, setFileContent] = useState("");
     const [error, setError] = useState(null);
@@ -28,9 +29,11 @@ function EditYaml(props) {
         renderSideBySide: false
     };
 
+    //TODO: fix this page, add moncao editor to project
+
     function loadFileContent() {
         setLoading(true);
-        postAPI("load_file_content/", {filepath: filepath}, (response) => {
+        postAPI("load_file_content/", {filepath: file}, (response) => {
             if(!response.errors) {
                 setFileContent(response.fileContent)
             }
@@ -44,7 +47,7 @@ function EditYaml(props) {
 
     function saveChanges() {
         const formData = new FormData();
-        formData.append("filepath", filepath);
+        formData.append("filepath", file);
         formData.append("content", editor.current.getModifiedEditor().getValue());
 
         postForm('save_file_changes/', formData, (response) => {
@@ -68,8 +71,8 @@ function EditYaml(props) {
     }
 
     useEffect(() => {
-        loadFileContent(filepath);
-    }, [filepath])
+        loadFileContent(file);
+    }, [file])
 
     useEffect(() => {
         setChanges([]);
@@ -79,11 +82,11 @@ function EditYaml(props) {
         return (
             <div className={cx("editor_header")}>
                 <div className={cx("file_info")}>
-                    <div>{error ?? <>Editing: <b>{filepath}</b></>}</div>
+                    <div>{error ?? <>Editing: <b>{file}</b></>}</div>
                     <div>{error ? <>&nbsp;</> : <>Changes made: <b>{changes.length}</b></>}</div>
                 </div>
                 <div>
-                    <button className="btn btn-dark" type="button" onClick={saveChanges} disabled={!filepath || !changes.length}>Save File</button>
+                    <button className="btn btn-dark" type="button" onClick={saveChanges} disabled={!file || !changes.length}>Save File</button>
                 </div>
             </div>
         )
