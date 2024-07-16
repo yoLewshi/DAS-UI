@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import styles from "./style.module.css";
 let cx = classNames.bind(styles);
 
-function Toast(props) {
+function Toast() {
     const { messages, setMessages, messagesRef } = useContext(GlobalContext);
 
     useEffect(()=> {

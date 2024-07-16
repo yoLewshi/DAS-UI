@@ -29,7 +29,7 @@ function LoggerConfig(props) {
 
     function parseConfig(loggerConfig) {
         setConfig(loggerConfig);
-        setSelectedConfig(loggerConfig.full_config[loggerConfig.selectedConfig]); 
+        setSelectedConfig(loggerConfig.full_config[loggerConfig.selected_config]); 
         buildTabs(loggerConfig);
         buildDefinitionFileTable(loggerConfig);
     }
@@ -38,8 +38,8 @@ function LoggerConfig(props) {
         setTabViews(Object.keys(loggerConfig.full_config).map((configName) => {
             
             return {
-                active: configName === loggerConfig.selectedConfig,
-                highlight: configName === loggerConfig.selectedConfig,
+                active: configName === loggerConfig.selected_config,
+                highlight: configName === loggerConfig.selected_config,
                 label: configName,
                 targetId: configName
             }
@@ -51,7 +51,7 @@ function LoggerConfig(props) {
      }
 
      function buildDefinitionFileTable(loggerConfig) {
-        setDefinitionRows(loggerConfig.definitionFiles.map((fileInfo) => { return [fileInfo.filename,(<><i className="bi bi-pencil-square"></i></>)]; }));
+        setDefinitionRows(loggerConfig.definition_files.map((fileInfo) => { return [fileInfo.filename,(<><i className="bi bi-pencil-square"></i></>)]; }));
      }
 
      function renderSection(configSection, sectionType) {

@@ -22,34 +22,39 @@ function ConfigEditor(props) {
     const { setMessages, messagesRef } = useContext(GlobalContext)
 
     function getLoggerConfig(callback) {
-        const path = isCruise ? "/cruise/get_config" : `/edit-logger-config/${loggerName}`;
+        const path = isCruise ? "/cruise-configuration/" : `/edit-logger-config/${loggerName}`;
         return getAPI(path, callback)
     }
 
     function updateSelectedConfig(configName) {
-        const path = isCruise ? "/cruise/set_config/" : `/edit-logger-config/${loggerName}`;
-        return postAPI(path, {"selectedConfig": configName}, onConfigUpdated.bind(null, loggerName, configName))
+        const path = isCruise ? "/select-cruise-mode/" : `/edit-logger-config/${loggerName}`;
+        return postAPI(path, isCruise? {"select_mode": configName} : {"selectedConfig": configName}, onConfigUpdated.bind(null, loggerName, configName))
     }
 
     let checkChangeTimeout = null;
 
     function onConfigUpdated(loggerName, configName, response){
-        if(response.success) {
-            addMessage(messagesRef, setMessages, response.message);
+        if(response.APIMeta.status === 200) {
+            addMessage(messagesRef, setMessages, "Request to change config received");
             checkChangeTimeout = setTimeout(checkConfigChanged.bind(null, loggerName, configName), 1000)
         }
     }
 
     function checkConfigChanged(loggerName, expectedConfig) {
-        const path = isCruise ? "/cruise/check_config_changed/" : `/logger/check_config_changed/${loggerName}`;
-        return postAPI(path, {expectedConfig: expectedConfig} , (response) => {
+        const path = isCruise ? "/cruise-configuration/" : `/edit-logger-config/${loggerName}`;
+        return getAPI(path, (response) => {
             if(response.retry) {
-                checkChangeTimeout = setTimeout(checkConfigChanged.bind(null, loggerName, configName), 1000)
+                checkChangeTimeout = setTimeout(checkConfigChanged.bind(null, loggerName, expectedConfig), 1000)
             }
             else {
-                if(response.success) {
-                    addMessage(messagesRef, setMessages, response.message);
+                if(response.selected_config == expectedConfig) {
                     setActiveConfigName(expectedConfig);
+
+                    if(isCruise) {
+                        addMessage(messagesRef, setMessages, `Cruise mode set to ${expectedConfig}`);
+                    } else {
+                        addMessage(messagesRef, setMessages, `${loggerName} set to ${expectedConfig}`);
+                    }
                 }
             }
         })
@@ -58,16 +63,15 @@ function ConfigEditor(props) {
     useEffect(()=>{
         if(loggerName) {
             getLoggerConfig((response)=> {
-                const {fullConfig, availableConfigs, selectedConfig} = response;
+                const {full_config, available_configs, selected_config} = response;
 
-                setFullConfig(fullConfig);
-                setConfigToView(selectedConfig);
-                setCurrentConfig(selectedConfig);
-                setConfigOptions(availableConfigs);
+                setFullConfig(full_config);
+                setConfigToView(selected_config);
+                setCurrentConfig(selected_config);
+                setConfigOptions(available_configs);
             });
         }
     }, [loggerName, activeConfigName, reloadOnChange])
-
 
     return (
         <div className={cx(["wrapper"])}>

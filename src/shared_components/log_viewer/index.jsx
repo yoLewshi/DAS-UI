@@ -65,7 +65,10 @@ function LogViewer(props) {
             allowedCss: ['font-weight', 'height', 'width'],
             allowedSchemas: ['http:', 'https:', 'ws:']
         });
-    const HTMLlogs = sanitizer.sanitizeHtml(formatLogs(logstoDisplay).join("\n"));
+
+    const combinedLogs = formatLogs(logstoDisplay).join("\n");
+
+    const HTMLlogs = combinedLogs.indexOf("<span") > -1 ? sanitizer.sanitizeHtml(combinedLogs) : combinedLogs;
 
     return (  
         <div className={cx(["log_viewer"].concat(cssClasses))}>

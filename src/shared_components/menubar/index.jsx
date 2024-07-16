@@ -19,7 +19,7 @@ function Menubar(props) {
 
     const {page} = props;
     const context = useContext(GlobalContext);
-    const permissions = context.global.permissions || {};
+    const permissions = context?.global.permissions || {};
 
     //TODO: add permissions to django and remove these
     permissions.home = true;

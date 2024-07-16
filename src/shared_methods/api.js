@@ -34,9 +34,8 @@ const postForm = function(url, formData, callback) {
     return fetch(`${API_URL}${url}`, {
         method: "POST",
         headers: {
-            "Authorization": getCookie("DRF_Token"),
+            "Authorization": `Token ${getCookie("DRF_Token")}`,
         },
-        credentials: "include",
         mode: "cors",
         body: formData
     }).then(parseResponse).then(callback).catch(handleErrors);
@@ -62,7 +61,6 @@ function storeCookie(name, value) {
     const dateObj = new Date();
     dateObj.setDate(dateObj.getDate() + 365);
     const yearLoggedIn = dateObj.toUTCString();
-    console.log(`${name}=${value}; expires=${yearLoggedIn};`)
 
     document.cookie = `${name}=${value}; expires=${yearLoggedIn}; path=/;`;
 }
@@ -85,6 +83,7 @@ const parseResponse = function(response) {
             storeCookie("DRF_Token", parsed.token);
         }
 
+        parsed.APIMeta = {status: response.status}
         return parsed;
     });
 }

@@ -1,8 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ConfigEditor from '../../shared_components/config_editor';
 import FileLoader from '../../shared_components/file_loader';
 import { addMessage, GlobalContext } from '../../shared_components/globalContext';
-import {postForm} from '../../shared_methods/api';
+import {getAPI, postForm} from '../../shared_methods/api';
 
 import styles from "./style.module.css";
 import classNames from 'classnames/bind';
@@ -10,19 +10,27 @@ let cx = classNames.bind(styles);
 
 function CruiseConfig(props) {
 
-    const {cruiseFilename, onFileChanged} = props;
-    const [activeFilename, setActiveFilename] = useState(cruiseFilename);
+    const filePlaceholder = "No cruise file loaded";
+    const [activeFilename, setActiveFilename] = useState(filePlaceholder);
     const { setMessages, messagesRef } = useContext(GlobalContext);
+
+    useEffect(onLoad, []);
+
+    function onLoad() {
+        getAPI("/cruise-configuration/").then((response) => {
+            setActiveFilename(response.configuration?.filename);
+        });
+    }
 
     function onCruiseFileUpdate(cruiseFile) {
         const formData = new FormData();
         formData.append("file", cruiseFile);
         formData.append("filename", cruiseFile.name);
 
-        postForm('/cruise/upload_cruise/', formData, (response) => {
-            addMessage(messagesRef, setMessages, response.message);
+        postForm('/upload-configuration/', formData, (response) => {
 
-            if(response.success) {
+            if(response.APIMeta.status === 200) {
+                addMessage(messagesRef, setMessages, "Cruise config uploaded");
                 if(!response.errors.length) {
                     setActiveFilename(cruiseFile.name);
                 } else {
@@ -34,7 +42,9 @@ function CruiseConfig(props) {
     }
 
     function openCruiseEdit() {
-        window.open(`/edit_yaml?file=${activeFilename}`, "_blank")
+        if(activeFilename != filePlaceholder) {
+            window.open(`/edit_yaml?file=${activeFilename}`, "_blank")
+        }
     }
 
     const helpText = <>
@@ -49,7 +59,7 @@ function CruiseConfig(props) {
                 <div className="row">
                     <div className={cx(["col", "col-3", "loggers_col"])}>
                         <FileLoader onUpdate={onCruiseFileUpdate} />
-                        <div className={"mt-3"}>Active cruise file: <b>{activeFilename}</b> {activeFilename != "No cruise file loaded" && (<i className="bi bi-pencil-square" onClick={openCruiseEdit}></i>)}</div>
+                        <div className={"mt-3"}>Active cruise file: <b>{activeFilename}</b> {activeFilename != filePlaceholder && (<i className="bi bi-pencil-square" onClick={openCruiseEdit}></i>)}</div>
                         <div className="mt-3">{helpText}</div>
                     </div>
                     <div className={cx(["col", "col-9", "details_col"])}>
