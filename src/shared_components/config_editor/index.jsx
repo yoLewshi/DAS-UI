@@ -22,13 +22,13 @@ function ConfigEditor(props) {
     const { setMessages, messagesRef } = useContext(GlobalContext)
 
     function getLoggerConfig(callback) {
-        const path = isCruise ? "/cruise-configuration/" : `/edit-logger-config/${loggerName}`;
+        const path = isCruise ? "/cruise-configuration/" : `/edit-logger-config/${loggerName}/`;
         return getAPI(path, callback)
     }
 
     function updateSelectedConfig(configName) {
-        const path = isCruise ? "/select-cruise-mode/" : `/edit-logger-config/${loggerName}`;
-        return postAPI(path, isCruise? {"select_mode": configName} : {"selectedConfig": configName}, onConfigUpdated.bind(null, loggerName, configName))
+        const path = isCruise ? "/select-cruise-mode/" : `/edit-logger-config/${loggerName}/`;
+        return postAPI(path, isCruise? {"select_mode": configName} : {"logger_id": loggerName, "config": configName, "update": true}, onConfigUpdated.bind(null, loggerName, configName))
     }
 
     let checkChangeTimeout = null;
@@ -41,7 +41,7 @@ function ConfigEditor(props) {
     }
 
     function checkConfigChanged(loggerName, expectedConfig) {
-        const path = isCruise ? "/cruise-configuration/" : `/edit-logger-config/${loggerName}`;
+        const path = isCruise ? "/cruise-configuration/" : `/edit-logger-config/${loggerName}/`;
         return getAPI(path, (response) => {
             if(response.retry) {
                 checkChangeTimeout = setTimeout(checkConfigChanged.bind(null, loggerName, expectedConfig), 1000)

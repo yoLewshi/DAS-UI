@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import { MonacoDiffEditor} from 'react-monaco-editor';
+import {DiffEditor} from '@monaco-editor/react';
+
+import Loader from '../loader';
+
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
 let cx = classNames.bind(styles);
@@ -27,18 +30,24 @@ function YamlEditor(props) {
             onChange(e);
         }
     }
+
+    function onMount(component) {
+        editorRef.current = component;
+        component.onDidUpdateDiff(updateChanges);
+    }
+
     
     return (
         <>
             <div className={cx(["change_label"])}>Changes made: <b>{changes.length}</b></div>
-            <MonacoDiffEditor
+            <DiffEditor
                 language="yaml"
                 theme="vs"
+                loading={<Loader />}
                 original={fileContent}
-                value={fileContent}
+                modified={fileContent}
                 options={editorOptions}
-                onChange={updateChanges}
-                editorDidMount={(component) => editorRef.current = component}
+                onMount={onMount}
             />
         </>
     )

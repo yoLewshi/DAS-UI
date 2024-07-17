@@ -13,6 +13,7 @@ const CruiseConfig = lazy(() => import('./routes/cruise_config'));
 const Home = lazy(() => import('./routes/home'));
 const Login = lazy(() => import('./routes/login'));
 const LoggerConfig = lazy(() => import('./routes/logger_config'));
+const LoggerEditPage = lazy(() => import('./routes/loggers'));
 const EditYaml = lazy(() => import('./routes/edit_yaml'));
 const Grafana = lazy(() => import('./routes/grafana'));
 const OpenRVDAS = lazy(() => import('./routes/openrvdas'));
@@ -28,11 +29,12 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<PrivateRoute component={Home}/>} />
+            <Route path="/loggers" element={<LoggerEditPage />} />
             <Route path="/logger/config/:loggerName" element={<LoggerConfig />} />
             <Route path="/cruise/config/" element={<CruiseConfig />} />
             <Route path="/edit_yaml" element={<EditYaml />} />
-            <Route path="/native" element={<OpenRVDAS />} />
             <Route path="/grafana" element={<Grafana />} />
+            <Route path="/native" element={<OpenRVDAS />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

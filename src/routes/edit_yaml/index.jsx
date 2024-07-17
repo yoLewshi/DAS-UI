@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import { MonacoDiffEditor} from 'react-monaco-editor';
+import {DiffEditor, loader} from '@monaco-editor/react';
 import Loader from '../../shared_components/loader';
 import Panel from "../../shared_components/panel";
 import { addMessage, GlobalContext } from '../../shared_components/globalContext';
@@ -12,7 +12,9 @@ let cx = classNames.bind(styles);
 
 function EditYaml() {
 
-    const { file } = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const file = searchParams.get("file");
+    
     const editor = useRef(null);
     const [fileContent, setFileContent] = useState("");
     const [error, setError] = useState(null);
@@ -29,13 +31,12 @@ function EditYaml() {
         renderSideBySide: false
     };
 
-    //TODO: fix this page, add moncao editor to project
-
     function loadFileContent() {
         setLoading(true);
-        postAPI("load_file_content/", {filepath: file}, (response) => {
+
+        postAPI("/yaml-file-content/", {filepath: file}, (response) => {
             if(!response.errors) {
-                setFileContent(response.fileContent)
+                setFileContent(response.content)
             }
             else {            
                 setError(response.errors)
@@ -50,17 +51,16 @@ function EditYaml() {
         formData.append("filepath", file);
         formData.append("content", editor.current.getModifiedEditor().getValue());
 
-        postForm('save_file_changes/', formData, (response) => {
+        postForm('/save-yaml-file-content/', formData, (response) => {
             addMessage(messagesRef, setMessages, response.message);
 
-            if(response.success) {
-                if(response.errors.length) {
-                    addMessage(messagesRef, setMessages, response.errors.join("\n"), "error");
-                    console.error(response.errors);
+            if(response.APIMeta.status === 200) {
+                if(fileContent) {
+                    setFileContent(response.content);
                 }
-                else if(fileContent) {
-                    setFileContent(response.fileContent);
-                }
+            } else if(response.errors.length) {
+                addMessage(messagesRef, setMessages, response.errors.join("\n"), "error");
+                console.error(response.errors);
             }
         })
     }
@@ -77,6 +77,11 @@ function EditYaml() {
     useEffect(() => {
         setChanges([]);
     }, [fileContent])
+
+    function onMount(component) {
+        editor.current = component;
+        component.onDidUpdateDiff(updateChanges);
+    }
 
     function editorHeader() {
         return (
@@ -117,15 +122,15 @@ function EditYaml() {
                     </div>
                     <div className={cx(["col", "col-12", "col-xl-8", "middle_col"])}>
                         <Panel showHeader={true} customHeader={editorHeader} cssClasses={cx(["details_panel", "w-100"])}>
-                            {<Loader hidden={!loading}/>}
-                            <MonacoDiffEditor
+                            <DiffEditor
+                                className={cx(["monaco-wrapper"])}
                                 language="yaml"
                                 theme="vs"
+                                loading={<Loader hidden={!loading}/>}
                                 original={fileContent}
-                                value={fileContent}
+                                modified={fileContent}
                                 options={editorOptions}
-                                onChange={updateChanges}
-                                editorDidMount={(component) => editor.current = component}
+                                onMount={onMount}
                             />
                         </Panel>
                     </div>

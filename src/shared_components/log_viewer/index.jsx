@@ -3,7 +3,7 @@ import Loader from "../loader";
 import {formatLogs} from "../../shared_methods/logs";
 import {websocket} from "../../shared_methods/websocket";
 
-import HtmlSanitizer from "jitbit-html-sanitizer";
+import sanitizeHtml from 'sanitize-html';
 
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
@@ -59,16 +59,10 @@ function LogViewer(props) {
         onPauseToggled(shouldPause);
     }
 
-    const sanitizer = new HtmlSanitizer({
-            allowedTags: ['div', 'p', 'span', 'a'],
-            allowedAttributes: ['href', 'style', 'src', 'class', 'id'],
-            allowedCss: ['font-weight', 'height', 'width'],
-            allowedSchemas: ['http:', 'https:', 'ws:']
-        });
-
     const combinedLogs = formatLogs(logstoDisplay).join("\n");
-
-    const HTMLlogs = combinedLogs.indexOf("<span") > -1 ? sanitizer.sanitizeHtml(combinedLogs) : combinedLogs;
+    const HTMLlogs = combinedLogs.indexOf("<span") > -1 ? sanitizeHtml(combinedLogs, {
+        allowedAttributes: Object.assign(sanitizeHtml.defaults.allowedAttributes, {"span": ["class"]})
+    }) : combinedLogs;
 
     return (  
         <div className={cx(["log_viewer"].concat(cssClasses))}>

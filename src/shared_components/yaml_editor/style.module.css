@@ -14,6 +14,6 @@
     height: 2rem;
 }
 
-:global(.react-monaco-editor-container) {
+.change_label + section {
     height: calc(100% - 2rem) !important;
 }

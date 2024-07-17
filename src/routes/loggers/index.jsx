@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import ConfigElement from '../../shared_components/config_element';
 import DASTable from '../../shared_components/das_table';
 import Panel from "../../shared_components/panel";
 import YamlEditor from '../../shared_components/yaml_editor';
@@ -10,7 +9,7 @@ import styles from "./style.module.css";
 import classNames from 'classnames/bind';
 let cx = classNames.bind(styles);
 
-function LoggerEditPage(props) {
+function LoggerEditPage() {
     const [loggerName, setLoggerName] = useState("");
     const [loggers, setLoggers] = useState([]);
     const [hasChanges, setHasChanges] = useState(false);
@@ -22,7 +21,7 @@ function LoggerEditPage(props) {
     const editor = useRef(null);
 
     function getLoggers(callback) {
-        return getAPI(`/loggers/get_persistent_loggers/`, callback)
+        return getAPI(`/persistent-loggers/`, callback)
     }
 
     useEffect(() =>{
@@ -30,7 +29,7 @@ function LoggerEditPage(props) {
     }, [])
 
     useEffect(() => {
-        buildLoggerTable(loggers.persistentLoggers);
+        buildLoggerTable(loggers.persistent_loggers);
 
         if(!selectedLoggerId) {
             openConfig(loggers.length ? loggers[0] : [null, "\u00A0", ""])
@@ -44,7 +43,7 @@ function LoggerEditPage(props) {
     }, [loggers])
 
     function parseLoggers(loggerResponse) {
-        setLoggers(loggerResponse.persistentLoggers);
+        setLoggers(loggerResponse.persistent_loggers);
     }
 
     function buildLoggerTable() {
@@ -67,7 +66,7 @@ function LoggerEditPage(props) {
         const name = document.querySelector("#NameInput").value;
         const fileContent = editor.current.getModifiedEditor().getValue();
 
-        postAPI(`save_persistent_logger/${name}`, {loggerId:selectedLoggerId, loggerConfig: fileContent}, (response) => {
+        postAPI(`persistent-loggers/${name}`, {logger_id:selectedLoggerId, logger_config: fileContent}, (response) => {
             if(!response.errors) {
                 setHasChanges(false);
             }
@@ -140,6 +139,6 @@ function LoggerEditPage(props) {
             </div>
         </>
     )
-};
+}
 
 export default LoggerEditPage;

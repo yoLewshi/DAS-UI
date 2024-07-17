@@ -3,6 +3,7 @@ const LOGGER_STATUSES = ["EXITED", "STARTED", "FAILED", "RUNNING"];
 const LOGGER_STATUS_EXPLANATIONS = {
     "EXITED": "The current logger config contains no 'readers' or 'writers'",
     "FAILED": "The logger subprocess has failed to start 3 times in a row",
+    "STARTING": "It's likely the logger subprocess has an error",
     "RUNNING": "The logger subprocess is active",
     "STARTED": "The logger config contains at least 1 reader or writer and the logger subprocess has either recently started or failed to start less than 3 times"
 }
