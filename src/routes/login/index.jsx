@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { addMessage, GlobalContext } from '../../shared_components/globalContext';
-import {postAPI} from '../../shared_methods/api';
+import {clearAuth, postAPI} from '../../shared_methods/api';
 
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
@@ -18,6 +18,9 @@ function Login(props) {
     }
 
     function submitLogin() {
+        // make sure any outdated auth is removed
+        clearAuth();
+
         const username = document.getElementById("Username").value;
         const password = document.getElementById("Password").value;
 

@@ -17,6 +17,7 @@ const LoggerEditPage = lazy(() => import('./routes/loggers'));
 const EditYaml = lazy(() => import('./routes/edit_yaml'));
 const Grafana = lazy(() => import('./routes/grafana'));
 const OpenRVDAS = lazy(() => import('./routes/openrvdas'));
+const CacheViewer = lazy(() => import('./routes/cache_viewer'));
 
 function App() {
   const page ="/";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/edit_yaml" element={<EditYaml />} />
             <Route path="/grafana" element={<Grafana />} />
             <Route path="/native" element={<OpenRVDAS />} />
+            <Route path="/admin/view_cache/:field?" element={<CacheViewer />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

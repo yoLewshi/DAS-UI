@@ -1,0 +1,14 @@
+.grid> :global(.row),
+.loggers_col,
+.details_col {
+    height: 100%;
+    max-height: 100%;
+}
+
+.loggers_col {
+    overflow-y: auto;
+}
+
+.details_col pre {
+    height: calc(100% - 0.5rem);
+}

@@ -21,7 +21,7 @@ function LoggerEditPage() {
     const editor = useRef(null);
 
     function getLoggers(callback) {
-        return getAPI(`/persistent-loggers/`, callback)
+        return getAPI(`/persistent-loggers/all`, callback)
     }
 
     useEffect(() =>{
@@ -66,7 +66,7 @@ function LoggerEditPage() {
         const name = document.querySelector("#NameInput").value;
         const fileContent = editor.current.getModifiedEditor().getValue();
 
-        postAPI(`persistent-loggers/${name}`, {logger_id:selectedLoggerId, logger_config: fileContent}, (response) => {
+        postAPI(`/persistent-loggers/${name}`, {logger_id:selectedLoggerId, logger_config: fileContent}, (response) => {
             if(!response.errors) {
                 setHasChanges(false);
             }

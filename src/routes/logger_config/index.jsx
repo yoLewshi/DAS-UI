@@ -10,7 +10,7 @@ import classNames from 'classnames/bind';
 import { useParams } from 'react-router-dom';
 let cx = classNames.bind(styles);
 
-function LoggerConfig(props) {
+function LoggerConfig() {
 
     const { loggerName } = useParams();
 

@@ -24,8 +24,8 @@ function Home() {
 
     function onLoad() {
         getAPI("/cruise-configuration/").then((response) => {
-            setCruiseSpecificLoggers(response.configuration?.cruise_specific_loggers);
-            setLoggers(response.configuration?.loggers);
+            setCruiseSpecificLoggers(response.configuration?.cruise_specific_loggers || []);
+            setLoggers(response.configuration?.loggers || {});
         })
     }
 
