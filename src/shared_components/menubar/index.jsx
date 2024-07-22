@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import { useLocation } from 'react-router-dom';
 import Feedback from "feeder-react-feedback";
 
 import "../../style/feeder.module.css";
@@ -15,28 +16,21 @@ import styles from "./style.module.css";
 let cx = classNames.bind(styles);
 
 
-function Menubar(props) {
+function Menubar() {
 
-    const {page} = props;
+    const page = window.location.pathname;
     const context = useContext(GlobalContext);
     const permissions = context?.global.permissions || {};
 
-    //TODO: add permissions to django and remove these
-    permissions.home = true;
-    permissions.loggers = true;
-    permissions.cruise_config = true;
-    permissions.udp = true;
-    permissions.native = true;
-    permissions.grafana = true;
-
-    const seeUtilities = permissions.cruise_config || permissions.udp || permissions.loggers;
+    const seeUtilities = permissions.manage_cruise || permissions.manage_udp || permissions.manage_loggers;
+    const seeAdmin = context.global.superuser;
 
     const { setMessages, messagesRef } = useContext(GlobalContext);
 
-    const buildNavItem = function(href, label, componentName) {
+    const buildNavItem = function(href, label) {
         return (
             <li className="nav-item">
-                <a className={cx(["nav-link", {"active":page == componentName}])} href={href}>{label}</a>
+                <a className={cx(["nav-link", {"active":page == href}])} href={href}>{label}</a>
             </li>
         )
     }
@@ -50,7 +44,11 @@ function Menubar(props) {
     }
 
     function utilitiesActive () {
-        return ["cruise_config", "loggers", "udp_manager"].includes(page);
+        return ["/cruise/config", "/loggers/", "/native", "/udp/"].includes(page);
+    }
+
+    function adminActive () {
+        return ["/admin/view_cache/", "/admin/shortcuts/"].includes(page);
     }
 
     // feedback is sent to https://feeder.sh/project/65791fb48c62fa0002aaea38
@@ -97,17 +95,27 @@ function Menubar(props) {
                 </button>
                 <div className={cx(["collapse", "navbar-collapse", "justify-content-between", "top_bar"])} id="navbarSupportedContent">
                     <ul className="navbar-nav nav-underline m-0">
-                        {permissions.home && buildNavItem("/", "Home", "das")}
-                        {permissions.grafana && buildNavItem("/grafana", "Grafana", "grafana")}                                
+                        {permissions.view_home && buildNavItem("/", "Home")}
+                        {permissions.view_grafana && buildNavItem("/grafana", "Grafana")}                                
                         {seeUtilities && <li className="nav-item dropdown">
                                 <a className={cx(["nav-link", "dropdown-toggle", {"active":utilitiesActive()}])} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Utilities
                                 </a>
                                 <ul className="dropdown-menu">
-                                    {permissions.loggers && buildDropdownItem("/loggers/", "Manage Loggers", "loggers")}
-                                    {permissions.udp && buildDropdownItem("/udp/", "UDP Subscriptions", "udp_manager")}
-                                    {permissions.cruise_config && buildDropdownItem("/cruise/config", "Cruise Config", "cruise_config")}
-                                    {permissions.native && buildDropdownItem("/native", "Native OpenRVDAS", "openrvdas")}
+                                    {permissions.manage_loggers && buildDropdownItem("/loggers/", "Manage Loggers")}
+                                    {permissions.manage_udp && buildDropdownItem("/udp/", "UDP Subscriptions")}
+                                    {permissions.manage_cruise && buildDropdownItem("/cruise/config", "Cruise Config")}
+                                    {permissions.view_native && buildDropdownItem("/native", "Native OpenRVDAS")}
+                                </ul>
+                            </li>
+                        }
+                        {seeAdmin && <li className="nav-item dropdown">
+                                <a className={cx(["nav-link", "dropdown-toggle", {"active":adminActive()}])} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <ul className="dropdown-menu">
+                                    {seeAdmin && buildDropdownItem("/admin/shortcuts/", "Shortcuts")}
+                                    {seeAdmin && buildDropdownItem("/admin/view_cache/", "View Cache")}
                                 </ul>
                             </li>
                         }

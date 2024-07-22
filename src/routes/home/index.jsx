@@ -2,13 +2,14 @@ import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import DASTable from '../../shared_components/das_table';
 import LoggerDetails from '../../shared_components/logger_details';
 
+import { getAPI } from '../../shared_methods/api';
 import { connectLoggerStatuses, parseOutput } from '../../shared_methods/loggerStatus';
 import { websocket } from '../../shared_methods/websocket';
 
 import styles from "./style.module.css";
 
 import classNames from 'classnames/bind';
-import { getAPI } from '../../shared_methods/api';
+
 let cx = classNames.bind(styles);
 
 function Home() {

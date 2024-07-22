@@ -21,9 +21,17 @@ export function GlobalProvider(props) {
 	function getAuthDetails() {
 		getAPI("/get-auth-user").then((response) => {
 				if(response?.user) {
-				const updatedProps = Object.assign({}, global, {username: response.user.username, permissions: response.user.user_permissions});
-				setGlobal(updatedProps);
-			}
+					const updatedProps = Object.assign({}, global, 
+						{
+							username: response.user.username, 
+							permissions: response.user.user_permissions.reduce((agg, permission) => {
+								agg[permission.codename] = permission;
+								return agg;
+							}, {}),
+							superuser: response.user.is_superuser
+						});
+					setGlobal(updatedProps);
+				}
 		})
 	}
 

@@ -8,6 +8,7 @@ import { GlobalProvider } from './shared_components/globalContext';
 import './App.css'
 
 import PrivateRoute from './routes/privateRoute';
+import Loader from './shared_components/loader';
 
 const CruiseConfig = lazy(() => import('./routes/cruise_config'));
 const Home = lazy(() => import('./routes/home'));
@@ -18,15 +19,14 @@ const EditYaml = lazy(() => import('./routes/edit_yaml'));
 const Grafana = lazy(() => import('./routes/grafana'));
 const OpenRVDAS = lazy(() => import('./routes/openrvdas'));
 const CacheViewer = lazy(() => import('./routes/cache_viewer'));
+const Shortcuts = lazy(() => import('./routes/shortcuts'));
 
-function App() {
-  const page ="/";
- 
+function App() { 
   return (
     <GlobalProvider>
-      <Menubar page={page}/>
+      <Menubar/>
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<PrivateRoute component={Home}/>} />
@@ -36,6 +36,7 @@ function App() {
             <Route path="/edit_yaml" element={<EditYaml />} />
             <Route path="/grafana" element={<Grafana />} />
             <Route path="/native" element={<OpenRVDAS />} />
+            <Route path="/admin/shortcuts/" element={<Shortcuts />} />
             <Route path="/admin/view_cache/:field?" element={<CacheViewer />} />
           </Routes>
         </Suspense>
