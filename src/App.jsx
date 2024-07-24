@@ -20,6 +20,7 @@ const Grafana = lazy(() => import('./routes/grafana'));
 const OpenRVDAS = lazy(() => import('./routes/openrvdas'));
 const CacheViewer = lazy(() => import('./routes/cache_viewer'));
 const Shortcuts = lazy(() => import('./routes/shortcuts'));
+const UDPManager = lazy(() => import('./routes/udp_manager'));
 
 function App() { 
   return (
@@ -32,11 +33,12 @@ function App() {
             <Route path="/" element={<PrivateRoute component={Home}/>} />
             <Route path="/loggers" element={<LoggerEditPage />} />
             <Route path="/logger/config/:loggerName" element={<LoggerConfig />} />
-            <Route path="/cruise/config/" element={<CruiseConfig />} />
+            <Route path="/cruise/config" element={<CruiseConfig />} />
             <Route path="/edit_yaml" element={<EditYaml />} />
             <Route path="/grafana" element={<Grafana />} />
             <Route path="/native" element={<OpenRVDAS />} />
-            <Route path="/admin/shortcuts/" element={<Shortcuts />} />
+            <Route path="/udp" element={<UDPManager />} />
+            <Route path="/admin/shortcuts" element={<Shortcuts />} />
             <Route path="/admin/view_cache/:field?" element={<CacheViewer />} />
           </Routes>
         </Suspense>

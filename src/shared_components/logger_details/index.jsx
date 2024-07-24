@@ -75,7 +75,7 @@ function LoggerDetails(props) {
                 // if there is already a delayed ready don't set up another one
                 // this happens if multiple responses come from the websocket
                 clearTimeout(delayedReadyTimeout.current)
-                delayedReadyTimeout.current = setTimeout(() => {console.log("delayed ready firing"); ws.send({'type':'ready'})}, 5000);
+                delayedReadyTimeout.current = setTimeout(() => { ws.send({'type':'ready'})}, 5000);
                 return false;
             }
 

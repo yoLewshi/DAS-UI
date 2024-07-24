@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
+
+import { addMessage, GlobalContext } from '../../shared_components/globalContext';
 import DASTable from '../../shared_components/das_table';
 import Panel from "../../shared_components/panel";
 import YamlEditor from '../../shared_components/yaml_editor';
 import {getAPI, postAPI} from '../../shared_methods/api';
-import { addMessage, GlobalContext } from '../../shared_components/globalContext';
+import { checkForPermission } from '../../shared_methods/permissions';
 
 import styles from "./style.module.css";
 import classNames from 'classnames/bind';
@@ -17,8 +19,13 @@ function LoggerEditPage() {
     const [selectedConfig, setSelectedConfig] = useState("");
     const [loggerRows, setLoggerRows] = useState([]);
 
-    const { setMessages, messagesRef } = useContext(GlobalContext);
+    const { setMessages, messagesRef, global } = useContext(GlobalContext);
     const editor = useRef(null);
+    
+    const permissionFailed = checkForPermission(global.permissions, "manage_loggers");
+    if(permissionFailed) {
+        return permissionFailed
+    }
 
     function getLoggers(callback) {
         return getAPI(`/persistent-loggers/all`, callback)

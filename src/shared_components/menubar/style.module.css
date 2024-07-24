@@ -11,3 +11,13 @@
 .event_log_icon {
     cursor: pointer;
 }
+
+.websocket_block {
+    display: inline-block;
+    vertical-align: middle;
+    border-bottom: solid 0.4rem var(--bs-danger);
+}
+
+.warning_icon {
+    color: var(--bs-danger);
+}

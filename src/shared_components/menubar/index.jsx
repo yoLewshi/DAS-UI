@@ -17,11 +17,10 @@ let cx = classNames.bind(styles);
 
 
 function Menubar() {
-
     const page = window.location.pathname;
     const context = useContext(GlobalContext);
     const permissions = context?.global.permissions || {};
-
+    
     const seeUtilities = permissions.manage_cruise || permissions.manage_udp || permissions.manage_loggers;
     const seeAdmin = context.global.superuser;
 
@@ -44,11 +43,11 @@ function Menubar() {
     }
 
     function utilitiesActive () {
-        return ["/cruise/config", "/loggers/", "/native", "/udp/"].includes(page);
+        return ["/cruise/config", "/loggers", "/native", "/udp"].includes(page);
     }
 
     function adminActive () {
-        return ["/admin/view_cache/", "/admin/shortcuts/"].includes(page);
+        return ["/admin/view_cache", "/admin/shortcuts"].includes(page);
     }
 
     // feedback is sent to https://feeder.sh/project/65791fb48c62fa0002aaea38
@@ -102,8 +101,8 @@ function Menubar() {
                                     Utilities
                                 </a>
                                 <ul className="dropdown-menu">
-                                    {permissions.manage_loggers && buildDropdownItem("/loggers/", "Manage Loggers")}
-                                    {permissions.manage_udp && buildDropdownItem("/udp/", "UDP Subscriptions")}
+                                    {permissions.manage_loggers && buildDropdownItem("/loggers", "Manage Loggers")}
+                                    {permissions.manage_udp && buildDropdownItem("/udp", "UDP Subscriptions")}
                                     {permissions.manage_cruise && buildDropdownItem("/cruise/config", "Cruise Config")}
                                     {permissions.view_native && buildDropdownItem("/native", "Native OpenRVDAS")}
                                 </ul>
@@ -114,14 +113,19 @@ function Menubar() {
                                     Admin
                                 </a>
                                 <ul className="dropdown-menu">
-                                    {seeAdmin && buildDropdownItem("/admin/shortcuts/", "Shortcuts")}
-                                    {seeAdmin && buildDropdownItem("/admin/view_cache/", "View Cache")}
+                                    {seeAdmin && buildDropdownItem("/admin/shortcuts", "Shortcuts")}
+                                    {seeAdmin && buildDropdownItem("/admin/view_cache", "View Cache")}
                                 </ul>
                             </li>
                         }
                     </ul>
                     <Clock cssClasses={[styles.clock]}/>
                     <div>
+                        {!context.global.connection?.websocket && <div className={cx(["me-3", "websocket_block"])}>
+                                <i className={cx(["bi", "bi-exclamation-triangle-fill", "me-2", "warning_icon"])}></i>
+                                <span>Websocket not connected</span>
+                            </div>
+                        }
                         <Feedback projectId="65791fb48c62fa0002aaea38" email={true}/>
                         <button className={cx(["btn", "btn-sm", "btn-dark", "me-3"])} onClick={activateFeeder}>
                             <i className={cx(["bi", "bi-chat-left-text-fill", "me-2"])} ></i>

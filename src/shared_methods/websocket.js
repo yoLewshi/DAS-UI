@@ -1,3 +1,5 @@
+import { setValue } from "./cache";
+
 //////////////////////////////////////////////////////////////////////////////
 // Connect to a websocket server to request data from it.
 //
@@ -21,6 +23,7 @@
 //
 // Note that this also counts on variable WEBSOCKET_SERVER  being set
 // in the calling page.
+
 
 const websocket = (function() {
   let ws;
@@ -51,7 +54,11 @@ const websocket = (function() {
     }
 
     console.debug("Trying to connect to websocket at " + websocket_server);
+
     ws = new WebSocket(websocket_server);
+    ws.onerror = function() {
+      setValue("websocketState", "failed");
+    }
     ws.onopen = function() {
       // We've succeeded in opening - don't try anymore
       console.debug("Connected - clearing retry interval");
@@ -71,6 +78,7 @@ const websocket = (function() {
 
     if(ws) {
       ws.onmessage = function (received_message) { 
+        setValue("websocketState", "connected");
         //console.debug("Got status update message: " + received_message.data);
         process_message(received_message.data);
         //console.debug('done processing message');

@@ -78,6 +78,10 @@ function clearAuth() {
 }
 
 const parseResponse = function(response) {
+    if(!response.ok){
+        console.log(response)
+    }
+
     return response.json().then((parsed) => {
         if(parsed?.token) {
             storeCookie("DRF_Token", parsed.token);

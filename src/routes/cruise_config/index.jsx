@@ -3,16 +3,23 @@ import ConfigEditor from '../../shared_components/config_editor';
 import FileLoader from '../../shared_components/file_loader';
 import { addMessage, GlobalContext } from '../../shared_components/globalContext';
 import {getAPI, postForm} from '../../shared_methods/api';
+import { checkForPermission } from '../../shared_methods/permissions';
 
 import styles from "./style.module.css";
 import classNames from 'classnames/bind';
+
 let cx = classNames.bind(styles);
 
-function CruiseConfig(props) {
+function CruiseConfig() {
 
     const filePlaceholder = "No cruise file loaded";
     const [activeFilename, setActiveFilename] = useState(filePlaceholder);
-    const { setMessages, messagesRef } = useContext(GlobalContext);
+    const { setMessages, messagesRef, global } = useContext(GlobalContext);
+
+    const permissionFailed = checkForPermission(global.permissions, "manage_cruise");
+    if(permissionFailed) {
+        return permissionFailed
+    }
 
     useEffect(onLoad, []);
 

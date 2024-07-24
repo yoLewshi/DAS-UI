@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import DASTable from '../../shared_components/das_table';
 import LoggerDetails from '../../shared_components/logger_details';
 
@@ -25,8 +25,11 @@ function Home() {
 
     function onLoad() {
         getAPI("/cruise-configuration/").then((response) => {
-            setCruiseSpecificLoggers(response.configuration?.cruise_specific_loggers || []);
-            setLoggers(response.configuration?.loggers || {});
+
+            if(response) {
+                setCruiseSpecificLoggers(response.configuration?.cruise_specific_loggers || []);
+                setLoggers(response.configuration?.loggers || {});
+            }
         })
     }
 
@@ -57,13 +60,12 @@ function Home() {
         }
         else if(!Object.keys(updatedLoggers).length) {
             // cache server empty, shouldn't happen in production
-            console.log("empty");
+            console.debug("cache server empty");
         }
         else
         {
             // don't delete newly added loggers without cache data
             loggersRef.current = Object.assign({}, loggers  ?? {}, updatedLoggers);
-            console.log(loggersRef.current);
             setLoggers(loggersRef.current);
         }
     }

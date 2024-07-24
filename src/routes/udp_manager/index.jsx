@@ -5,18 +5,24 @@ import {getAPI, postAPI} from '../../shared_methods/api';
 
 import styles from "./style.module.css";
 import classNames from 'classnames/bind';
+import { checkForPermission } from '../../shared_methods/permissions';
 let cx = classNames.bind(styles);
 
-function UDPManager(props) {
-
-    const userIP = props.ip_address || "Unknown";
-    const [ipAddress, setIPAddress] = useState(userIP);
+function UDPManager() {
+    
     const [rows, setRows] = useState([]);
     const [changes, setChanges] = useState({});
-    const { setMessages, messagesRef } = useContext(GlobalContext);
+    const { setMessages, messagesRef, global } = useContext(GlobalContext);
+    const clientIP = global.clientIP || "Unknown";
+    const [ipAddress, setIPAddress] = useState(clientIP);
+
+    const permissionFailed = checkForPermission(global.permissions, "manage_udp");
+    if(permissionFailed) {
+        return permissionFailed
+    }
 
     function updateSubscriptions () {
-        postAPI("update_subscriptions/", {
+        postAPI("/update-udp-subscriptions/", {
             "ip": ipAddress,
             "changes": changes
         }, onSubscriptionsChanged)
@@ -35,11 +41,11 @@ function UDPManager(props) {
     }
 
     function getSubscriptions() {
-        return getAPI(`get_subscriptions/${ipAddress}`, parseSubscriptions);
+        return getAPI(`/get-udp-subscriptions-by-ip/${ipAddress}`, parseSubscriptions);
     }
 
     function parseSubscriptions(response) {
-        if(response.success) {
+        if(response.APIMeta.status === 200) {
             setRows(response.rows.map((row) => {
                 row.subscribed = row[3];
                 row[3] = renderTick(row[3]);
@@ -110,10 +116,10 @@ function UDPManager(props) {
                         <div>
                             <div className={cx(["input-group", "mb-3", "ip_input"])}>
                                 <span className="input-group-text">IP to subscribe</span>
-                                <input type="text" id="IPInput" className="form-control" maxLength="32" onChange={updateIPAddress} defaultValue={userIP}></input>
+                                <input type="text" id="IPInput" className="form-control" maxLength="32" onChange={updateIPAddress} defaultValue={clientIP}></input>
                                 <button className="btn btn-dark" type="button" onClick={getSubscriptions} disabled={!ipAddress.length}>Check Subscriptions</button>
                             </div>
-                            <div className="d-lg-inline-block ms-lg-3 mb-0 mb-sm-3 mb-lg-0">Your IP address is <b>{userIP}</b></div>
+                            <div className="d-lg-inline-block ms-lg-3 mb-0 mb-sm-3 mb-lg-0">Your IP address is <b>{clientIP}</b></div>
                         </div>
                         <div className="row"><p>{helpText}</p></div>
                         <button className="btn btn-dark" type="button" onClick={updateSubscriptions} disabled={!Object.keys(changes).length}>Apply UDP Subscriptions</button>

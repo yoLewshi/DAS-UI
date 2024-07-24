@@ -4,6 +4,7 @@ import { addMessage, GlobalContext } from '../../shared_components/globalContext
 import Panel from '../../shared_components/panel';
 
 import {getAPI} from '../../shared_methods/api';
+import { checkForSuperuser } from '../../shared_methods/permissions';
 
 import styles from "./style.module.css";
 import classNames from 'classnames/bind';
@@ -11,9 +12,13 @@ let cx = classNames.bind(styles);
 
 function Shortcuts() {
 
-    const { setMessages, messagesRef } = useContext(GlobalContext);
+    const { setMessages, messagesRef, global } = useContext(GlobalContext);
     const [activeCalls, setActiveCalls] = useState({});
     
+    const permissionFailed = checkForSuperuser(global);
+    if(permissionFailed) {
+        return permissionFailed
+    }
 
     function onClick(path) {
         setActiveCalls((prev) => {
@@ -34,21 +39,28 @@ function Shortcuts() {
         });
     }
 
-    const permissionGroupBtn = <button className="btn btn-dark" type="button" onClick={onClick.bind(null, "/create-permission-groups/")} disabled={Object.keys(activeCalls).includes("/create-permission-groups/")}>Create Permission Groups</button>
+    function renderButton(path, label) {
+        return <button className="btn btn-dark" type="button" onClick={onClick.bind(null, path)} disabled={Object.keys(activeCalls).includes(path)}>{label}</button>
+    }
+
+    function renderPanel(path, label, description) {
+        return  <Panel showHeader={true} showFooter={true} header={label} footer={renderButton(path, label)} fullwidth={false} cssClasses={cx(["mb-4", "w-100"])}>
+                    <b className={cx(["path"])}>{path}</b>
+                    <p dangerouslySetInnerHTML={{__html: description}}></p>
+                </Panel>
+    }
 
     return (  
         <>
             <div className={cx(["container-fluid", "grid"])}>
                 <div className="row">
-                    <div className={cx(["col", "col-lg-4", "offset-lg-4"])}>
-                        <h5 className="mt-4">Shortcuts to admin API functions</h5>
-                        
-                        <Panel showHeader={true} showFooter={true} header={"Create Permission Groups"} footer={permissionGroupBtn} fullwidth={false} cssClasses={cx(["help_panel", "w-100"])}>
-                            <b className={cx(["path"])}>/create-permission-groups/</b>
-                            <p>This endpoint creates django permission groups with the default global UI permissions. Groups can be assigned and edited via the django admin interface.</p>
-                            
-                        </Panel>
-                        
+                    <div className={cx(["col", "col-12"])}>
+                        <h5 className="mt-4 ms-3 mb-4">Shortcuts to API functions</h5>
+                        <div className={cx(["card_grid", "p-2"])}>
+                            {renderPanel("/create-permissions/", "Create Permissions", "This endpoint creates django global UI permissions. Permissions can be assigned and edited via the django admin interface.")}
+                            {renderPanel("/create-permission-groups/", "Create Permission Groups", "This endpoint creates django permission groups for admins and viewers with default global UI permissions. Groups can be assigned and edited via the django admin interface.")}
+                            {renderPanel("/load-persistent-loggers/", "Load Persistent Loggers", "This endpoint reads logger <b>.yaml</b> files from <b>/local/logger_configs</b> on the OpenRVDAS server and creates persistent loggers which are not linked to a cruise file. Persistent Loggers can be edited in the UI without reloading a cruise or logger config file.")}
+                        </div>
                     </div>
                 </div>
             </div>
