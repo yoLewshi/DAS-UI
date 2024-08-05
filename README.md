@@ -1,8 +1,18 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# DAS UI
 
-Currently, two official plugins are available:
+This is a frontend React app built by NIWA for use with OpenRVDAS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Home page](docs/home_example.png)
+
+
+![Persistent Loggers](docs/loggers.png)
+
+
+## Developing Locally
+
+This app runs on vite. You can run it locally if you have node.js installed but running `npm install` in the root directory then `npm run dev`
+
+## Building and Deploying in Production
+
+tbc.

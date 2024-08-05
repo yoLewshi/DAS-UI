@@ -28,13 +28,14 @@ export function GlobalProvider(props) {
 				return agg;
 			}, {}),
 			superuser: cachedUser?.value?.is_superuser,
-			clientIP: cachedIP?.value
+			clientIP: cachedIP?.value,
+			connection: {websocket: true}
 		});
 	const [messages, setMessages] = useState(initialState);
 	const messagesRef = useRef(initialState);
 
 	clearInterval(connectionInterval);
-	connectionInterval = setInterval(checkAPIConnection, 20 * 1000);
+	connectionInterval = setInterval(checkAPIConnection, 10 * 1000);
 
 	const acceptableTimeout = 10 * 1000; // 10 seconds
 
@@ -85,7 +86,7 @@ export function GlobalProvider(props) {
 	function onRender() {
 		getAuthDetails();
 		getClientIP();
-		checkAPIConnection();
+		setTimeout(checkAPIConnection, 500);
 	}
 
 	useEffect(onRender, []);

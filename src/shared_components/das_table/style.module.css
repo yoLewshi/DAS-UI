@@ -15,11 +15,12 @@
 }
 
 .DAS_table th {
-    padding: 0.25rem 0.5rem !important;
+    padding: 0.25rem 0.75rem !important;
 }
 
+/* px used to avoid sub-pixel heights for repeating logger status backgrounds*/
 .DAS_table td > div {
-    padding: 0 0.25rem !important;
+    padding: 2px 0.5rem !important;
     position: relative;
     z-index: 2;
 }

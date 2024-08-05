@@ -21,9 +21,6 @@ import { setValue } from "./cache";
 // will be called on the data received from that initial message and
 // future messages.
 //
-// Note that this also counts on variable WEBSOCKET_SERVER  being set
-// in the calling page.
-
 
 const websocket = (function() {
   let ws;
@@ -168,35 +165,14 @@ const websocket = (function() {
   }
 
   function reload(initialMessageFn, process_message, sendReady, afterFirstMessage){
-      
-    //   let oldOnMessage;
-    // // don't retry connecting on close
-    //   if(ws) {
-    //       oldOnMessage = ws.onmessage;
-    //       ws.onclose = ()=>{};
-    //       clearTimeout(retry_websocket_connection);
-    //       ws.close();
-    //   }
-
-    //   ws = connectWebsocket(initialMessageFn, process_message, sendReady);
-    //   if(ws) {
-    //     ws.onmessage = (message) => {
-    //       if(oldOnMessage) {
-    //         oldOnMessage(message);
-    //         ws.onmessage = oldOnMessage;
-    //       }
-    //       afterFirstMessage(message);
-    //     }
-    //   }
-
-    //   return ws;
+    // return ws;
     // don't retry connecting on close
       if(ws) {
           ws.onclose = ()=>{};
           clearTimeout(retry_websocket_connection);
           ws.close()
       }
-      
+
       ws = connectWebsocket(initialMessageFn, process_message, sendReady);
 
       if(ws) {

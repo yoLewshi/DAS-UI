@@ -15,6 +15,7 @@ const Home = lazy(() => import('./routes/home'));
 const Login = lazy(() => import('./routes/login'));
 const LoggerConfig = lazy(() => import('./routes/logger_config'));
 const LoggerEditPage = lazy(() => import('./routes/loggers'));
+const Django = lazy(() => import('./routes/django'));
 const EditYaml = lazy(() => import('./routes/edit_yaml'));
 const Grafana = lazy(() => import('./routes/grafana'));
 const OpenRVDAS = lazy(() => import('./routes/openrvdas'));
@@ -38,6 +39,7 @@ function App() {
             <Route path="/grafana" element={<Grafana />} />
             <Route path="/native" element={<OpenRVDAS />} />
             <Route path="/udp" element={<UDPManager />} />
+            <Route path="/admin/django" element={<Django />} />
             <Route path="/admin/shortcuts" element={<Shortcuts />} />
             <Route path="/admin/view_cache/:field?" element={<CacheViewer />} />
           </Routes>

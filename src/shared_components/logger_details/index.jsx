@@ -1,17 +1,19 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import { addMessage, GlobalContext } from '../globalContext';
 import Panel from "../panel";
 import TabBar from '../tab_bar';
 import ConfigEditor from '../config_editor';
 import LogViewer from '../log_viewer';
 import StatusIndicator from '../status_indicator';
 import FieldTable from '../field_table';
+import { postAPI } from '../../shared_methods/api';
 import {websocket} from "../../shared_methods/websocket";
 
 import { LOGGER_STATUS_EXPLANATIONS, LOGGER_STATUSES } from "../../shared_methods/constants";
 
-
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
+
 let cx = classNames.bind(styles);
 
 function LoggerDetails(props) {
@@ -31,6 +33,11 @@ function LoggerDetails(props) {
 
     const [fieldMetadata, setFieldMetadata] = useState([]);
     const [fieldsLoading, setfieldsLoading] = useState(false);
+
+    const {global, messagesRef, setMessages} = useContext(GlobalContext);
+
+    const canSeeConfig = global.permissions?.manage_loggers != null;
+    const canRestart = global.superuser;
 
     useEffect(() => {
         setWs(websocket());
@@ -136,13 +143,11 @@ function LoggerDetails(props) {
                         // sometimes returns array of values
                         setLoggerOutput(value_list);  
                     }
-                    
             }
         }
     }
 
     function getLoggerDetails() {
-
         loggerNameRef.current = loggerName
         if(loggerName) {
             // doesn't like sending another subscribe so instead reload connection
@@ -184,17 +189,42 @@ function LoggerDetails(props) {
         }    
     }
 
+    function restartLogger(loggerName) {
+        // this is crude and will fail for other naming conventions
+        const offConfigName = `${loggerName}->off`;
+        const onConfigName = `${loggerName}->on`;
+
+        const path = `/edit-logger-config/${loggerName}/`;
+         postAPI(path, {"logger_id": loggerName, "config": offConfigName, "update": true}).then((response) => {
+            if(response.APIMeta.status === 200) {
+                addMessage(messagesRef, setMessages, `Request to change config to ${offConfigName} received`);
+
+                postAPI(path, {"logger_id": loggerName, "config": onConfigName, "update": true}).then((response) => {
+                    if(response.APIMeta.status === 200) {
+                        addMessage(messagesRef, setMessages, `Request to change config to ${onConfigName} received`);
+                    }
+                })
+            }
+        })
+    }
+
     const tabViews = [
         {
             label: "Output",
             targetId: "#DetailsTab",
             active: true
-        },
-        {
-            label: "Switch Config",
-            targetId: "#ConfigTab"
         }
     ]
+
+    if(canSeeConfig) {
+        tabViews.push(
+            {
+                label: "Switch Config",
+                targetId: "#ConfigTab"
+            }
+        );
+    }
+
 
     const headerContent = () => {
         return (
@@ -202,6 +232,7 @@ function LoggerDetails(props) {
                 <h2 className={cx(["text-bg-dark", "logger_name"])}>{loggerName || '\u00A0'}</h2>
                 <StatusIndicator status={status} possibleStatuses={LOGGER_STATUSES} explanations={LOGGER_STATUS_EXPLANATIONS} hideBars={true} cssClasses={["me-3"]}/>
                 <TabBar views={tabViews} onChange={onTabChange}/>
+                {canRestart && <button className={cx(["btn", "btn-warning", "me-3", "restart_button"])} type="button" onClick={restartLogger.bind(null, loggerName)}>Restart</button>}
             </div>
         )
     }
@@ -217,7 +248,7 @@ function LoggerDetails(props) {
                                     <div className={cx(["left_pane", "h-100"])}>
                                         <div className={cx(["logs_output"])}>
                                             <LogViewer loggerName={loggerName} loggerOutput={loggerOutput} label={"Input from Reader"} linesToKeep={15} onPauseToggled={onLogsPaused.bind(null, "logger")} showControls={true} cssClasses={["pb-2"]}/>
-                                            <LogViewer loggerName={loggerName} loggerOutput={stderrOutput} label={"Subprocess stderr"} linesToKeep={30} onPauseToggled={onLogsPaused.bind(null, "stderr")} showControls={true} />
+                                            <LogViewer loggerName={loggerName} loggerOutput={stderrOutput} label={"Subprocess stderr"} linesToKeep={50} onPauseToggled={onLogsPaused.bind(null, "stderr")} showControls={true} />
                                         </div>
                                     </div>
                                 </div>
@@ -229,9 +260,9 @@ function LoggerDetails(props) {
                     </div>
                     
                 </div>
-                <div id="ConfigTab" className={cx(["container-fluid", "details_content", "tab-pane"])} role="tabpanel">
+                { canSeeConfig && <div id="ConfigTab" className={cx(["container-fluid", "details_content", "tab-pane"])} role="tabpanel">
                     <ConfigEditor loggerName={loggerName}/>
-                </div>
+                </div>}
             </div>
         </Panel>
     )

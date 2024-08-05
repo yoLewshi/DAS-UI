@@ -16,7 +16,7 @@ function DASRow(props) {
                 showSelected && <td className={cx(["select_cell"])}><div>{selected ? <i className="bi bi-caret-right-fill"></i> : '\u00A0'}</div></td>
             }       
             {row.map((col, i) => {
-                return <td key={i}><div>{col}</div></td>
+                return <td key={i}>{col && <div>{col}</div>}</td>
             })}
         </tr>
     )

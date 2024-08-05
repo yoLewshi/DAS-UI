@@ -19,21 +19,27 @@ function Home() {
     const [selectedLogger, setSelectedLogger] = useState(null);
     const [loggerRows, setLoggerRows] = useState([]);
     const [loggerStatusDetails, setLoggerStatusDetails] = useState({});
-    const loggerStatusInterval = useRef(0);
 
-    const headers = ["Logger", "Active Config", "\u00A0", "\u00A0"];
+    const headers = ["\u00A0", "Active Config", "\u00A0", "\u00A0"];
 
     function onLoad() {
-        getAPI("/cruise-configuration/").then((response) => {
+       getLoggers();
+    }
+
+    useEffect(onLoad, []);
+
+    function getLoggers() {
+         getAPI("/cruise-configuration/").then((response) => {
 
             if(response) {
                 setCruiseSpecificLoggers(response.configuration?.cruise_specific_loggers || []);
                 setLoggers(response.configuration?.loggers || {});
+            } else {
+                // keep trying incase backend comes back online
+                setTimeout(getLoggers, 30000)
             }
         })
     }
-
-    useEffect(onLoad, []);
 
 
     function loggerSelected(row) {
@@ -71,7 +77,6 @@ function Home() {
     }
 
     function onDetailedLoggerStatus(socketResponse) {
-        
         const statusDetails = {};
         Object.keys(socketResponse).map((key) => {
             if(key.indexOf("stderr:logger:") == 0) {
@@ -89,6 +94,11 @@ function Home() {
         const loggerName = row[0];
         const rowStatus = loggerStatusDetails[loggerName];
         const classes = [];
+
+        if(row[1].indexOf("->off") > -1) {
+            // don't highlight errors for loggers that are turned off
+            return classes
+        }
 
         if(rowStatus) {
             if(rowStatus.errorRate >= 100) {
@@ -131,8 +141,6 @@ function Home() {
     });
 
     useEffect(() => {
-        clearInterval(loggerStatusInterval.current);
-        loggerStatusInterval.current = setInterval(() => { connectLoggerStatuses(websocket, onDetailedLoggerStatus); }, 60000);
         connectLoggerStatuses(websocket, onDetailedLoggerStatus);
 
         const activeLoggerIcon = <i className={cx(["bi", "bi-check-lg", "active_logger_icon"])}  data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={"Logger is running"}></i>;

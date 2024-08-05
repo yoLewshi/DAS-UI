@@ -5,8 +5,14 @@ function connectLoggerStatuses(websocketFn, onMessage) {
         ws = websocketFn();
     }
     
-    // don't send ready message, want to poll at a slower rate than main logger:status updates
-    ws.reload(buildMessage, (message) => ws.processResponse(message, onMessage), (message) => message?.type != "data", () => {});
+    // only send a ready message after sending a subscribe
+    const sendReady = (message) => message?.type != "data";
+    
+    ws.reload(buildMessage, (message) => {
+        ws.processResponse(message, onMessage);
+        // send subscribe again so that we always get at least the latest status for all loggers, otherwise it only sends changes
+        ws.send(buildMessage());
+    }, sendReady, () => {});
 
     return ws;
 }
@@ -25,7 +31,6 @@ function buildMessage() {
     return baseMessage;
 }
 
-
 function parseOutput(stdErrLines, liveLogLines) {
 
     const errorMap = {}
@@ -39,7 +44,7 @@ function parseOutput(stdErrLines, liveLogLines) {
     const oldDataTime = now - cutoffPeriod;
 
     const recentStdErrLines = stdErrLines.filter((line) => {
-        return line[0] > oldDataTime;
+        return line[0] * 1000 > oldDataTime;
     })
 
     const lastMessageTime = liveLogLines ? new Date(liveLogLines[liveLogLines.length - 1][0] * 1000) : new Date(stdErrLines[stdErrLines.length - 1][0] * 1000);

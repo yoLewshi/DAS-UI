@@ -113,6 +113,7 @@ function Menubar() {
                                     Admin
                                 </a>
                                 <ul className="dropdown-menu">
+                                    {seeAdmin && buildDropdownItem("/admin/django", "Django Admin")}
                                     {seeAdmin && buildDropdownItem("/admin/shortcuts", "Shortcuts")}
                                     {seeAdmin && buildDropdownItem("/admin/view_cache", "View Cache")}
                                 </ul>

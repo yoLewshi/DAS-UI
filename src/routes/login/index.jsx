@@ -43,12 +43,12 @@ function Login(props) {
     return (  
         <div className="container-fluid">
             <div className="row">
-                <div className="col offset-4 col-sm-4">
+                <div className="col offset-xl-4 col-xl-4">
                     <img src={logoURL} className="img-fluid mx-auto d-block" alt="DAS logo"></img>
                 </div>
             </div>
             <div className="row mt-4">
-                <div className="col col-lg-4 offset-lg-4 col-sm-10 offset-sm-1">
+                <div className="col col-xl-4 offset-xl-4 col-sm-10 offset-sm-1">
                     <label htmlFor="Username" className="form-label"><h5>Username</h5></label>
                     <input type="text" className="form-control mb-3" id="Username" />
                     <label htmlFor="Password" className="form-label"><h5>Password</h5></label>

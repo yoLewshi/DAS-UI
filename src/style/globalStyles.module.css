@@ -1,3 +1,5 @@
+@import "./stripes.module.css";
+
 @font-face {
     font-family: 'Inter Tight';
     src: url('/fonts/InterTight-VariableFont_wght.ttf') format("truetype");

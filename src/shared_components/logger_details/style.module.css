@@ -6,7 +6,7 @@
     flex-grow: 0;
 }
 
-.header > *:last-child {
+.header > *:nth-child(3) {
     flex-grow: 1;
 }
 
@@ -21,6 +21,15 @@
     font-style: italic;
 }
 
+.restart_button {
+    font-weight: 700;
+    opacity: 0;
+}
+
+.restart_button:hover {
+    opacity: 1
+}
+
 .details_panel {
     width: 100%;
     height: calc(100% - 0.5rem);
@@ -29,7 +38,6 @@
 
 .details_panel :global(.card-body){
     padding-top: 0;
-
 }
 
 .details_content, .details_content > :global(.row) {
