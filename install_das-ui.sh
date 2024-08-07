@@ -6,7 +6,7 @@ function install_das-ui_docker {
     sudo docker network create --subnet=172.18.0.0/16 das-net || true
     sudo docker image prune --all -f --filter label=openrvdas="das-ui"
     sudo docker volume prune --all -f --filter label=openrvdas="das-ui"
-    sudo docker build -t openrvdas/das-ui-image -f local/niwa/utils/dockerfile_das-ui .
+    sudo docker build -t openrvdas/das-ui-image -f dockerfile_das-ui .
     sudo docker run -d -p 3000:80 --restart=always --name=das-ui --net das-net --ip 172.18.0.7 openrvdas/das-ui-image
 }
 
