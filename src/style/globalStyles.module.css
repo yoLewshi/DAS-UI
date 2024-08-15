@@ -1,5 +1,3 @@
-@import "./stripes.module.css";
-
 @font-face {
     font-family: 'Inter Tight';
     src: url('/fonts/InterTight-VariableFont_wght.ttf') format("truetype");
@@ -18,7 +16,7 @@
 .react_root{
 }
 
-:global(nav) {
+nav {
     height: 48px;
 }
 
@@ -35,7 +33,7 @@ nav + *{
     }
 }
 
-:global(body){
+body{
     margin: 0;
     overflow: hidden; 
     --bs-font-sans-serif: 'Inter Tight',
@@ -55,7 +53,7 @@ nav + *{
     --bs-body-font-family: var(--bs-font-sans-serif);
 }
 
-:global(iframe){
+iframe{
     border: none;
 }
 

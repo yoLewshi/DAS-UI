@@ -7,7 +7,7 @@ function install_das-ui_docker {
     sudo docker image prune --all -f --filter label=openrvdas="das-ui"
     sudo docker volume prune --all -f --filter label=openrvdas="das-ui"
     sudo docker build -t openrvdas/das-ui-image -f dockerfile_das-ui .
-    sudo docker run -d -p 80:3000 --restart=always --name=das-ui --net das-net --ip 172.18.0.7 openrvdas/das-ui-image
+    sudo docker run -d -p 5173:3000 --restart=always --name=das-ui --net das-net --ip 172.18.0.7 openrvdas/das-ui-image
 }
 
 install_das-ui_docker
