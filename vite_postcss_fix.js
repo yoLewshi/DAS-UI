@@ -4,7 +4,6 @@ const options = {
   files: 'dist/assets/*.css',
   from: /:global((.*?)){/g,
   to: (match) => {
-    console.log(match);
     return match.replaceAll(":global(", "",).replaceAll(")", "")
   },
 }
