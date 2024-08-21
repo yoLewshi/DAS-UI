@@ -25,6 +25,7 @@ function FieldTable(props) {
 
     useEffect(() => {
         if(fields && fields.length) {
+            lastExampleTime.current = Date.now() - exampleWait;
             getFieldExamples();
             setDeviceType(fields[0].device_type);
         }
