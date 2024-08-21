@@ -58,7 +58,7 @@ function FieldTable(props) {
         setFieldRows(fields.map((field) => {
             return [
                 field.device_type_field, 
-                examples[field.device_type_field] || <>&nbsp;</>,
+                examples[field.fullName] || <>&nbsp;</>,
                 field.units, 
                 field.description ? <i className={cx(["bi", "bi-question-square-fill", "field_description"])}  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={field.description}></i> : <>&nbsp;</>
             ]
@@ -78,7 +78,7 @@ function FieldTable(props) {
     function buildSubscribeMessage() {
 
         const fieldDict = fields.reduce((agg, field) => {
-            agg[field.device_type_field] = {
+            agg[field.fullName] = {
                 'seconds': 30,
                 'back_records': 1,
             }
@@ -104,11 +104,11 @@ function FieldTable(props) {
             const timeNow = Date.now();
             if(lastExampleTime.current < (timeNow - exampleWait)) {
                 fields.map((field) => {
-                    const returnedData = message[field.device_type_field];
+                    const returnedData = message[field.fullName];
 
                     if(returnedData && returnedData.length) {
                         const value = returnedData.pop()[1];
-                        examples[field.device_type_field] = value;
+                        examples[field.fullName] = value;
                     }
                 });
 
