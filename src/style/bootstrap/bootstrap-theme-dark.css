@@ -1,0 +1,70 @@
+body.dark .dropdown-menu {
+    --bs-dropdown-border-color: #212529;
+}
+
+@media (max-width: 992px) {
+    body.dark .navbar-collapse {
+        background-color: var(--bs-body-bg);
+    }
+}
+
+body.dark {
+    --bs-body-bg: #212529;
+    --bs-tertiary-bg: #212529;
+    --bs-body-color: #F1EDE5;
+    --bs-info: #30BEFF;
+    --bs-emphasis-color: #F1EDE5;
+    /* --highlight-bg: #212529; */
+    --highlight-bg: #F1EDE5;
+    --secondary-highlight-bg: #373b3e;
+    --highlight-text-color: #212529;
+    --bs-emphasis-color-rgb: 255,255,255;
+    --bs-dark-rgb: #F1EDE5;
+}
+
+body.dark .table-dark {
+    --bs-table-color: #212529;
+    --bs-table-bg: #F1EDE5;
+    --bs-table-border-color: #373b3e;
+    --bs-table-striped-bg: #2c3034;
+    --bs-table-striped-color: #F1EDE5;
+    --bs-table-active-bg: #373b3e;
+    --bs-table-active-color: #F1EDE5;
+    --bs-table-hover-bg: #323539;
+    --bs-table-hover-color: #F1EDE5;
+    color: var(--bs-table-color);
+    border-color: var(--bs-table-border-color);
+}
+
+.dropdown-menu {
+    --bs-dropdown-color: var(--bs-body-color);
+    --bs-dropdown-bg: var(--bs-body-bg);
+    --bs-dropdown-border-color: var(--bs-border-color-translucent);
+    --bs-dropdown-border-radius: var(--bs-border-radius);
+    --bs-dropdown-border-width: var(--bs-border-width);
+    --bs-dropdown-inner-border-radius: calc(var(--bs-border-radius) - var(--bs-border-width));
+    --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
+    --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --bs-dropdown-link-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
+    --bs-dropdown-link-active-color: #fff;
+    --bs-dropdown-link-active-bg: #0d6efd;
+    --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
+    --bs-dropdown-header-color: #6c757d;
+}
+
+
+body.dark .toast {
+    --bs-toast-bg: var(--highlight-bg);
+    --bs-toast-border-widt: 0;
+    --bs-toast-border-radius: 0;
+    --bs-toast-box-shadow: none;
+    --bs-toast-color: #212529;
+    --bs-btn-close-color: #212529;
+}
+
+body.dark .navbar-nav .nav-link.active,
+body.dark .navbar-nav .nav-link.show {
+    color: var(--bs-navbar-active-color);
+}

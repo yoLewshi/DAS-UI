@@ -7,6 +7,7 @@ import "../../style/feeder.module.css";
 import { addMessage, GlobalContext } from '../globalContext';
 import EventLogger from '../event_logger';
 import UserAccountBlock from '../user_account_block';
+import ThemeToggle from '../theme_toggle';
 import Clock from '../clock';
 import {checkConnection} from '../../shared_methods/connection';
 
@@ -119,6 +120,7 @@ function Menubar() {
                                 </ul>
                             </li>
                         }
+                        <ThemeToggle/>
                     </ul>
                     <Clock cssClasses={[styles.clock]}/>
                     <div>
