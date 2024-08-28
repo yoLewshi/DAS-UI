@@ -8,6 +8,8 @@ import './style/bootstrap/bootstrap-icons.css';
 import './style/bootstrap/bootstrap.min.css';
 import './style/bootstrap/bootstrap-theme.css';
 
+import './style/feeder.module.css';
+import './style/stripes.module.css';
 import './style/globalStyles.module.css';
 
 

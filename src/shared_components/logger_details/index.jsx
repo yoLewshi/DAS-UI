@@ -98,7 +98,9 @@ function LoggerDetails(props) {
         const foundFields = Object.keys(message).reduce((agg, fieldName) => {
             if(message[fieldName].device == loggerNameRef.current)
             {
-                agg.push(message[fieldName]);
+                const fieldInfo = message[fieldName];
+                fieldInfo.fullName = fieldName;
+                agg.push(fieldInfo);
             }
 
             return agg;
