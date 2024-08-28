@@ -1,5 +1,3 @@
-.clock {
-    display: inline-flex;
-    font-family: var(--bs-font-monospace);
-    vertical-align: middle;
+.theme_toggle {
+    padding-top: 0.2rem;
 }

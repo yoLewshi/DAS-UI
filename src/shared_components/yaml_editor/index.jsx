@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {DiffEditor} from '@monaco-editor/react';
+import { GlobalContext } from '../../shared_components/globalContext';
 
 import Loader from '../loader';
 
@@ -10,6 +11,7 @@ let cx = classNames.bind(styles);
 function YamlEditor(props) {
     const { editorRef, fileContent, onChange } = props;
 
+    const { global } = useContext(GlobalContext);
     const [changes, setChanges] = useState([]);
     const defaultEditorOptions = {
         automaticLayout: true,
@@ -42,7 +44,7 @@ function YamlEditor(props) {
             <div className={cx(["change_label"])}>Changes made: <b>{changes.length}</b></div>
             <DiffEditor
                 language="yaml"
-                theme="vs"
+                theme={global.theme == "default" ? "vs" : "vs-dark"}
                 loading={<Loader />}
                 original={fileContent}
                 modified={fileContent}

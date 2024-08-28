@@ -1,5 +1,6 @@
 import React, {memo, useContext, useEffect, useState} from 'react';
-import { addMessage, GlobalContext } from '../../shared_components/globalContext';
+import { GlobalContext } from '../../shared_components/globalContext';
+import { getValue, setValue } from '../../shared_methods/cache';
 
 
 import classNames from 'classnames/bind';
@@ -10,7 +11,7 @@ function ThemeToggle(props) {
 
     const {cssClasses} = props || [];
     const { global, setGlobal } = useContext(GlobalContext);
-    const [theme, setTheme] = useState("default");
+    const [theme, setTheme] = useState(getValue("theme") || "default");
 
     function toggleTheme() {
         setTheme((prevValue) => {
@@ -20,6 +21,7 @@ function ThemeToggle(props) {
 
     useEffect(() => {
         setGlobal(Object.assign({}, global, {theme: theme}));
+        setValue("theme", theme);
 
         if(theme == "default") {
             document.querySelector("body").classList.remove("dark")
@@ -30,7 +32,7 @@ function ThemeToggle(props) {
     }, [theme])
 
     return (  
-        <div className={cx([].concat(cssClasses))}>
+        <div className={cx(["theme_toggle"].concat(cssClasses))}>
             {theme == "default" ? 
             <i className="bi bi-toggle-off" onClick={toggleTheme}></i>
             : <i className="bi bi-toggle-on" onClick={toggleTheme}></i>
