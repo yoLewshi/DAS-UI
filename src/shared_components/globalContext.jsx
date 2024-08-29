@@ -30,7 +30,7 @@ export function GlobalProvider(props) {
 			superuser: cachedUser?.value?.is_superuser,
 			clientIP: cachedIP?.value,
 			connection: {websocket: true},
-			theme: getValue("theme") || "default"
+			theme: getValue("theme").value || "default"
 		});
 	const [messages, setMessages] = useState(initialState);
 	const messagesRef = useRef(initialState);

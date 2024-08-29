@@ -11,7 +11,7 @@ function ThemeToggle(props) {
 
     const {cssClasses} = props || [];
     const { global, setGlobal } = useContext(GlobalContext);
-    const [theme, setTheme] = useState(getValue("theme") || "default");
+    const [theme, setTheme] = useState(getValue("theme").value || "default");
 
     function toggleTheme() {
         setTheme((prevValue) => {
