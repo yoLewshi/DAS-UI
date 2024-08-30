@@ -39,7 +39,7 @@ function parseOutput(stdErrLines, liveLogLines) {
     let totalWarnings = 0;
     let mostCommonCount = 0;
 
-    const cutoffPeriod = 24 * 60 * 60 * 1000;
+    const cutoffPeriod = 12 * 60 * 60 * 1000;
     const now = (new Date()).getTime();
     const oldDataTime = now - cutoffPeriod;
 
