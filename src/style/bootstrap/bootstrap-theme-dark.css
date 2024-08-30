@@ -113,6 +113,11 @@ body.dark b {
     color: var(--bs-body-bg);
 }
 
+body.dark .text-bg-dark {
+    color: var(--bs-body-bg) !important;
+    background-color: var(--highlight-bg) !important;
+}
+
 body.dark .form-control:focus {
     border-color: var(--highlight-bg);
     color: var(--bs-body-color) !important;
