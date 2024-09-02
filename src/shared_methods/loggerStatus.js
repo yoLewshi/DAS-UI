@@ -55,7 +55,8 @@ function parseOutput(stdErrLines, liveLogLines) {
         warningRate: 0,
         lastError: "",
         lastWarning: "",
-        mostCommon: ""
+        mostCommon: "",
+        oldDataTime: oldDataTime
     }
     
     recentStdErrLines.map((line) => {

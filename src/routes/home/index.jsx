@@ -86,7 +86,7 @@ function Home() {
                 statusDetails[loggerName] = parseOutput(socketResponse[key], liveLogOutput);
             }
         })
-
+        console.log(statusDetails);
         setLoggerStatusDetails(statusDetails);
     }
 
