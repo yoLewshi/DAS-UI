@@ -74,7 +74,7 @@ function LogViewer(props) {
                     <button className={cx(["btn", "btn-sm", "btn-dark"])} onClick={togglePause.bind(null, false)} disabled={!isPaused}>
                         <i className="bi bi-play-fill"></i>
                     </button>
-                    {label ? <b className={cx(["ms-3", "label"])}>{label}</b> : <></>}
+                    {label ? <b className={cx(["ms-3", "label", "text-bg-dark"])}>{label}</b> : <></>}
                 </div>
             )}
             
