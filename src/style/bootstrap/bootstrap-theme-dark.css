@@ -114,7 +114,7 @@ body.dark b {
 }
 
 body.dark .text-bg-dark {
-    color: var(--bs-body-bg) !important;
+    color: var(--bs-body-color) !important;
     background-color: var(--highlight-bg) !important;
 }
 
