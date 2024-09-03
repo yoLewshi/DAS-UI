@@ -28,8 +28,13 @@ nav + *{
 
 @media(min-width: 992px) {
     nav+* {
-            margin-top: 48px;
-            height: calc(100vh - 48px);
+            margin-top: 58px;
+            height: calc(100vh - 58px);
+    }
+
+    nav+iframe {
+        margin-top: 48px;
+        height: calc(100vh - 48px);
     }
 }
 

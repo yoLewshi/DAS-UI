@@ -24,10 +24,15 @@ body.dark {
     
     --highlight-text-color: #F1EDE5;
     --bs-emphasis-color-rgb: 255,255,255;
+    --bs-dark: #0B0C0E;
     --bs-dark-rgb: #F1EDE5;
     --bs-nav-link-color: #F1EDE5;
     --bs-border-color: #0B0C0E;
     --bs-border-color-translucent: rgba(0,0,0,0.9);
+}
+
+body.dark .das_logo {
+    filter: invert(1);
 }
 
 body.dark .table-dark {
@@ -76,7 +81,7 @@ body.dark .toast {
     --bs-btn-close-color: #212529;
 }
 
-body.dark .toast_wrapper {
+body.dark .toast_outer:not([type="error"]) .toast_wrapper{
     border-top: 0.5rem solid var(--bs-info);
 }
 

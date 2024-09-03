@@ -17,6 +17,7 @@
     --highlight-bg: #212529;
     --secondary-highlight-bg: #373b3e;
     --highlight-text-color: #fff;
+    --hash-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .nav, .nav-underline {
@@ -24,6 +25,18 @@
     --bs-nav-link-color: var(--bs-nav-link-hover-color);
     --bs-nav-underline-border-width: 0.4rem;
     --bs-nav-link-padding-y: 0.25rem;
+}
+
+@media (min-width: 992px) {
+    .navbar::after {
+        content: "";
+        position: absolute;
+        bottom: calc(var(--bs-navbar-padding-y) * -1.5);
+        width: 100%;
+        height: calc(var(--bs-navbar-padding-y) * 1.5);
+        border-top: 0.2rem solid var(--bs-dark);
+        background-image: var(--hash-pattern);
+    }
 }
 
 .nav-link {
@@ -49,6 +62,16 @@
 
 .offcanvas {
     --bs-offcanvas-width: 40rem;
+}
+
+.offcanvas::after {
+    content: "";
+    position: absolute;
+    left: calc(0.25rem * -1.5);
+    height: 100%;
+    width: calc(0.25rem * 1.5);
+    border-right: 0.2rem solid var(--bs-dark);
+    background-image: var(--hash-pattern);
 }
 
 .dropdown-menu {

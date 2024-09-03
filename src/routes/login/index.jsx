@@ -35,7 +35,9 @@ function Login(props) {
                 setGlobal(Object.assign({}, global, {authToken: response.token}));
                 window.location.replace(redirectTo || "/");
             } else {
-                addMessage(messagesRef, setMessages, response.message, "error");
+                console.log(response)
+                addMessage(messagesRef, setMessages, response.message || response.non_field_errors
+, "error");
             }
         })
     }
@@ -44,7 +46,7 @@ function Login(props) {
         <div className="container-fluid">
             <div className="row">
                 <div className="col offset-xl-4 col-xl-4">
-                    <img src={logoURL} className="img-fluid mx-auto d-block" alt="DAS logo"></img>
+                    <img src={logoURL} className={cx(["img-fluid", "mx-auto", "d-block", "das_logo"])} alt="DAS logo"></img>
                 </div>
             </div>
             <div className="row mt-4">
