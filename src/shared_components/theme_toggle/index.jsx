@@ -1,4 +1,4 @@
-import React, {memo, useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { GlobalContext } from '../../shared_components/globalContext';
 import { getValue, setValue } from '../../shared_methods/cache';
 
@@ -32,13 +32,11 @@ function ThemeToggle(props) {
     }, [theme])
 
     return (  
-        <div className={cx(["theme_toggle"].concat(cssClasses))}>
-            {theme == "default" ? 
-            <i className="bi bi-toggle-off" onClick={toggleTheme}></i>
-            : <i className="bi bi-toggle-on" onClick={toggleTheme}></i>
-            }
+        <div className={cx(["theme_toggle"].concat(cssClasses))} onClick={toggleTheme}>
+            <i className="bi bi-palette-fill me-2"></i>
+            <i className={cx("bi", {"bi-toggle-off": theme == "default", "bi-toggle-on": theme != "default"})}></i>
         </div>
     )
 };
 
-export default memo(ThemeToggle);
+export default ThemeToggle;

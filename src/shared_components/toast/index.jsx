@@ -43,8 +43,8 @@ function Toast() {
                     const message = messages[key];
                     return (
                         <div className={cx(["toast", "toast_outer"])} role="alert" key={key} id={key} type={message.type}>
-                            <div className="d-flex">
-                                <div className="toast-body">
+                            <div className={cx(["d-flex", "toast_wrapper"])}>
+                                <div className={cx(["toast-body"])}>
                                 {parseArrayContent(message)}
                                 </div>
                                 <button type="button" className="btn me-2 m-auto" data-bs-dismiss="toast">

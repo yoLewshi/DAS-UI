@@ -109,10 +109,10 @@ function UDPManager() {
         <>
             <div className={cx(["container-fluid", "grid"])}>
                 <div className="row">
-                    <div className={cx(["col", "col-lg-2", "loggers_col"])}>
+                    <div className={cx(["col", "col-lg-4", "loggers_col"])}>
                         <DASTable headers={loggerTableHeaders} rows={rows} highlightFn={isChange} onClick={toggleSubscription} cssClasses={styles.logger_table}/>
                     </div>
-                    <div className={cx(["col", "col-lg-10"])}>
+                    <div className={cx(["col", "col-lg-8"])}>
                         <div>
                             <div className={cx(["input-group", "mb-3", "ip_input"])}>
                                 <span className="input-group-text">IP to subscribe</span>

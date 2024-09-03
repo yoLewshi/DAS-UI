@@ -11,7 +11,7 @@ function EventLogger(props) {
 
     const {panelId} = props;
 
-    const maxCharacters = 40;
+    const maxCharacters = 60;
     const [ws, setWs] = useState(null);
     const [charactersLeft, setCharactersLeft] = useState(maxCharacters);
     const [logOutput, setLogOutput] = useState([]);
@@ -111,7 +111,7 @@ function EventLogger(props) {
                 <p>The time recorded is when the <b>Submit</b> button is clicked.</p>
                 <div className={cx(["event_input", "input-group"])}>
                     <span className="input-group-text">Event Text</span>
-                    <input type="text" id="EventInput" className="form-control" maxLength="40" onInput={updateCharacters} onKeyDown={onKeyDown}></input>
+                    <input type="text" id="EventInput" className="form-control" maxLength={maxCharacters} onInput={updateCharacters} onKeyDown={onKeyDown}></input>
                 </div>
                 <div className={cx(["under_input"])}>
                     <div className={cx(["character_count"])}>{charactersLeft}</div>
@@ -119,7 +119,7 @@ function EventLogger(props) {
                             Submit
                     </button>
                 </div>
-                <h5 className="mt-2">Last Logged Events</h5>
+                <h5 className="mt-2"><b className={cx(["text-bg-dark"])}>Last Logged Events</b></h5>
                 <LogViewer loggerName={"EventLogger"} loggerOutput={logOutput} linesToKeep={30} cssClasses={["pb-2", "mt-2"]} showControls={false}/>
             </div>
         </div>

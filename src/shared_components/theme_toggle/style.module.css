@@ -1,3 +1,10 @@
 .theme_toggle {
     padding-top: 0.2rem;
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.theme_toggle:hover {
+    padding-top: 0.2rem;
+    opacity: 1;
 }

@@ -201,11 +201,13 @@ function LoggerDetails(props) {
             if(response.APIMeta.status === 200) {
                 addMessage(messagesRef, setMessages, `Request to change config to ${offConfigName} received`);
 
-                postAPI(path, {"logger_id": loggerName, "config": onConfigName, "update": true}).then((response) => {
-                    if(response.APIMeta.status === 200) {
-                        addMessage(messagesRef, setMessages, `Request to change config to ${onConfigName} received`);
-                    }
-                })
+                setTimeout(() => {
+                    postAPI(path, {"logger_id": loggerName, "config": onConfigName, "update": true}).then((response) => {
+                        if(response.APIMeta.status === 200) {
+                            addMessage(messagesRef, setMessages, `Request to change config to ${onConfigName} received`);
+                        }
+                    })
+                }, 1000);
             }
         })
     }
