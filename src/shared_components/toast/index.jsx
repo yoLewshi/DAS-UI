@@ -17,7 +17,7 @@ function Toast() {
                     const bsToast = bootstrap.Toast.getOrCreateInstance(toastEl);
                     bsToast.show();
                     // default delay is 10 seconds, this gives time for fade in and out
-                    setTimeout(removeToast.bind(null, toastEl.id), 10000);
+                    setTimeout(removeToast.bind(null, toastEl.id), 300000);
                     messages[toastId].shown = true;
                 }            
             })

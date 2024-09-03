@@ -29,6 +29,7 @@ body.dark {
     --bs-nav-link-color: #F1EDE5;
     --bs-border-color: #0B0C0E;
     --bs-border-color-translucent: rgba(0,0,0,0.9);
+    --translucent-overlay: rgba(255, 255, 255, 0.5);
 }
 
 body.dark .das_logo {

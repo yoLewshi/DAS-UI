@@ -1,3 +1,5 @@
+import { getValue } from './cache';
+
 let ws;
 
 function connectLoggerStatuses(websocketFn, onMessage) {
@@ -41,7 +43,8 @@ function parseOutput(stdErrLines, liveLogLines) {
 
     const cutoffPeriod = 12 * 60 * 60 * 1000;
     const now = (new Date()).getTime();
-    const oldDataTime = now - cutoffPeriod;
+    const cachedDismissedAt = getValue("dismissedAlerts")?.value;
+    const oldDataTime = cachedDismissedAt ?? (now - cutoffPeriod);
 
     const recentStdErrLines = stdErrLines.filter((line) => {
         return line[0] * 1000 > oldDataTime;

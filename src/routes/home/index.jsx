@@ -1,14 +1,17 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import { GlobalContext, addMessage } from '../../shared_components/globalContext';
 import DASTable from '../../shared_components/das_table';
 import LoggerDetails from '../../shared_components/logger_details';
 
 import { getAPI } from '../../shared_methods/api';
+import { setValue } from '../../shared_methods/cache';
 import { connectLoggerStatuses, parseOutput } from '../../shared_methods/loggerStatus';
 import { websocket } from '../../shared_methods/websocket';
 
 import styles from "./style.module.css";
 
 import classNames from 'classnames/bind';
+
 
 let cx = classNames.bind(styles);
 
@@ -18,9 +21,13 @@ function Home() {
     const loggersRef = useRef();
     const [selectedLogger, setSelectedLogger] = useState(null);
     const [loggerRows, setLoggerRows] = useState([]);
+    const [lastSocketResponse, setLastSocketResponse] = useState({});
     const [loggerStatusDetails, setLoggerStatusDetails] = useState({});
 
-    const headers = ["\u00A0", "Active Config", "\u00A0", "\u00A0"];
+    const { setMessages, messagesRef, global } = useContext(GlobalContext);
+
+    const dismissButton = <i className={cx(["bi", "bi-hand-thumbs-up-fill", "dismiss_alerts"])} onClick={dismissAlerts}></i>;
+    const headers = ["\u00A0", "Active Config", "\u00A0", dismissButton];
 
     function onLoad() {
        getLoggers();
@@ -78,6 +85,8 @@ function Home() {
 
     function onDetailedLoggerStatus(socketResponse) {
         const statusDetails = {};
+        setLastSocketResponse(socketResponse);
+
         Object.keys(socketResponse).map((key) => {
             if(key.indexOf("stderr:logger:") == 0) {
                 const loggerName = key.replace("stderr:logger:", "");
@@ -129,6 +138,14 @@ function Home() {
 
         return classes;
     }
+
+    function dismissAlerts() {
+        // this value is used in the loggerStatus methods instead of the cutoff
+        setValue("dismissedAlerts", Date.now());
+        addMessage(messagesRef, setMessages, "You're ignoring the current logger errors and warnings on this machine", "warning")
+        onDetailedLoggerStatus(lastSocketResponse);
+    }
+
 
     const ref = useCallback((node) => {
         if(node != null) {

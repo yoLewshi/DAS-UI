@@ -90,6 +90,11 @@ h2 {
     color: #fff;
 }
 
+:global(.timestamp) {
+    padding: 0 0.3rem;
+    border-right: 0.2rem solid var(--translucent-overlay);
+}
+
 :global(.input-group-text) {
     border-right: none !important;
 }
