@@ -104,7 +104,7 @@ function Home() {
         const rowStatus = loggerStatusDetails[loggerName];
         const classes = [];
 
-        if(row[1].indexOf("->off") > -1) {
+        if(row[1].indexOf("off") > -1) {
             // don't highlight errors for loggers that are turned off
             return classes
         }
