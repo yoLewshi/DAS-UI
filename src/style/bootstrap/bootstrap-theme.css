@@ -72,7 +72,7 @@
 }
 
 .offcanvas {
-    --bs-offcanvas-width: 40rem;
+    --bs-offcanvas-width: 34rem;
 }
 
 .offcanvas::after {
