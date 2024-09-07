@@ -91,8 +91,8 @@ function LogViewer(props) {
             )}
             
             <pre ref={preRef}>
-                {showLoader && <Loader hidden={lastUpdateTime.current > 0 || !loggerName} />}
                 {<span dangerouslySetInnerHTML={{ __html: HTMLlogs }}></span>}
+                {showLoader && <Loader hidden={lastUpdateTime.current > 0 || !loggerName} />}
             </pre>
         </div>
     )
