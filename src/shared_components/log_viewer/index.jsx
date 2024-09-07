@@ -18,6 +18,7 @@ function LogViewer(props) {
     const [isPaused, setIsPaused] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
     const lastUpdateTime = useRef(0);
+    const preRef = useRef(null);
 
     useEffect(() => {
         setShowLoader(true);
@@ -38,13 +39,14 @@ function LogViewer(props) {
                 }
             });
 
-            lastUpdateTime.current = lastTimeStamp;
             if(!isPaused) {
                 setLogsToDisplay((oldLogs) => {
                     const newLogs = oldLogs.concat(logs);
                     return newLogs.slice(-linesToKeep);
                 })
             }
+
+            setTimeout(() => lastUpdateTime.current = lastTimeStamp, 0);
 
             // delay allows loader to fade out
             if(showLoader) {
@@ -53,6 +55,16 @@ function LogViewer(props) {
             
         }, [loggerOutput]
     )
+
+    useEffect(() => {
+        if(lastUpdateTime.current == 0) {
+            scrollToLatest();
+        }
+    }, [logstoDisplay])
+
+    function scrollToLatest() {
+        preRef.current.scrollTo(0, preRef.current.scrollHeight);
+    }
 
     function togglePause(shouldPause) {
         setIsPaused(shouldPause);
@@ -78,7 +90,7 @@ function LogViewer(props) {
                 </div>
             )}
             
-            <pre>
+            <pre ref={preRef}>
                 {showLoader && <Loader hidden={lastUpdateTime.current > 0 || !loggerName} />}
                 {<span dangerouslySetInnerHTML={{ __html: HTMLlogs }}></span>}
             </pre>
