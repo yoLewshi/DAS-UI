@@ -35,9 +35,8 @@ function Login(props) {
                 setGlobal(Object.assign({}, global, {authToken: response.token}));
                 window.location.replace(redirectTo || "/");
             } else {
-                console.log(response)
-                addMessage(messagesRef, setMessages, response.message || response.non_field_errors
-, "error");
+                console.error(response)
+                addMessage(messagesRef, setMessages, response.message || response.non_field_errors, "error");
             }
         })
     }

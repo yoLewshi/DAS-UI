@@ -14,10 +14,11 @@ function Toast() {
             [...toastElList].map(toastEl => {
                 const toastId = toastEl.id;
                 if(!messages[toastId].shown) {
+                    // eslint-disable-next-line no-undef
                     const bsToast = bootstrap.Toast.getOrCreateInstance(toastEl);
                     bsToast.show();
-                    // default delay is 10 seconds, this gives time for fade in and out
-                    setTimeout(removeToast.bind(null, toastEl.id), 300000);
+                    // default delay is 30 seconds, this gives time for fade in and out
+                    setTimeout(removeToast.bind(null, toastEl.id), 30000);
                     messages[toastId].shown = true;
                 }            
             })

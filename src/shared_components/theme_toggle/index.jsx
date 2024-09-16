@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import { GlobalContext } from '../../shared_components/globalContext';
 import { getValue, setValue } from '../../shared_methods/cache';
 
-
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
 let cx = classNames.bind(styles);

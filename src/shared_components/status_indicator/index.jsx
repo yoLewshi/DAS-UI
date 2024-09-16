@@ -9,8 +9,6 @@ function StatusIndicator(props) {
     const cssClasses = props.cssClasses || [];
     const [tooltip, setTooltip] = useState(null);
 
-
-    
     useEffect(()=> {
         if(tooltip) {
             tooltip.dispose();
@@ -28,6 +26,7 @@ function StatusIndicator(props) {
         if(node != null && !tooltip) {
             const tooltipTriggerList = node.querySelectorAll(`.${styles.status_label}[data-bs-toggle="tooltip"]`);
             [...tooltipTriggerList].map(tooltipTriggerEl => {
+                // eslint-disable-next-line no-undef
                 setTooltip(bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl));
             })
         }

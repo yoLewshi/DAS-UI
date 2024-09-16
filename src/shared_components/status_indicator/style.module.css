@@ -52,6 +52,7 @@
 }
 
 .status_inner.STARTING {
+    color: var(--bs-dark);
     background-color: var(--bs-warning);
 }
 

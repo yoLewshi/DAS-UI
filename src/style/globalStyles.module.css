@@ -87,7 +87,7 @@ h2 {
 
 :global(.log_error) {
     background-color: var(--bs-danger);
-    color: #fff;
+    color: #fff !important;
 }
 
 :global(.timestamp) {
