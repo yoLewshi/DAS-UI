@@ -201,11 +201,13 @@ function LoggerDetails(props) {
             if(response.APIMeta.status === 200) {
                 addMessage(messagesRef, setMessages, `Request to change config to ${offConfigName} received`);
 
-                postAPI(path, {"logger_id": loggerName, "config": onConfigName, "update": true}).then((response) => {
-                    if(response.APIMeta.status === 200) {
-                        addMessage(messagesRef, setMessages, `Request to change config to ${onConfigName} received`);
-                    }
-                })
+                setTimeout(() => {
+                    postAPI(path, {"logger_id": loggerName, "config": onConfigName, "update": true}).then((response) => {
+                        if(response.APIMeta.status === 200) {
+                            addMessage(messagesRef, setMessages, `Request to change config to ${onConfigName} received`);
+                        }
+                    })
+                }, 1000);
             }
         })
     }
@@ -250,7 +252,7 @@ function LoggerDetails(props) {
                                     <div className={cx(["left_pane", "h-100"])}>
                                         <div className={cx(["logs_output"])}>
                                             <LogViewer loggerName={loggerName} loggerOutput={loggerOutput} label={"Input from Reader"} linesToKeep={15} onPauseToggled={onLogsPaused.bind(null, "logger")} showControls={true} cssClasses={["pb-2"]}/>
-                                            <LogViewer loggerName={loggerName} loggerOutput={stderrOutput} label={"Subprocess stderr"} linesToKeep={50} onPauseToggled={onLogsPaused.bind(null, "stderr")} showControls={true} />
+                                            <LogViewer loggerName={loggerName} loggerOutput={stderrOutput} label={"Logger stderr"} linesToKeep={50} onPauseToggled={onLogsPaused.bind(null, "stderr")} showControls={true} />
                                         </div>
                                     </div>
                                 </div>

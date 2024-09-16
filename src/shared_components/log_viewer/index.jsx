@@ -18,6 +18,7 @@ function LogViewer(props) {
     const [isPaused, setIsPaused] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
     const lastUpdateTime = useRef(0);
+    const preRef = useRef(null);
 
     useEffect(() => {
         setShowLoader(true);
@@ -38,13 +39,14 @@ function LogViewer(props) {
                 }
             });
 
-            lastUpdateTime.current = lastTimeStamp;
             if(!isPaused) {
                 setLogsToDisplay((oldLogs) => {
                     const newLogs = oldLogs.concat(logs);
                     return newLogs.slice(-linesToKeep);
                 })
             }
+
+            setTimeout(() => lastUpdateTime.current = lastTimeStamp, 0);
 
             // delay allows loader to fade out
             if(showLoader) {
@@ -53,6 +55,16 @@ function LogViewer(props) {
             
         }, [loggerOutput]
     )
+
+    useEffect(() => {
+        if(lastUpdateTime.current == 0) {
+            scrollToLatest();
+        }
+    }, [logstoDisplay])
+
+    function scrollToLatest() {
+        preRef.current.scrollTo(0, preRef.current.scrollHeight);
+    }
 
     function togglePause(shouldPause) {
         setIsPaused(shouldPause);
@@ -74,13 +86,13 @@ function LogViewer(props) {
                     <button className={cx(["btn", "btn-sm", "btn-dark"])} onClick={togglePause.bind(null, false)} disabled={!isPaused}>
                         <i className="bi bi-play-fill"></i>
                     </button>
-                    {label ? <b className={cx(["ms-3", "label"])}>{label}</b> : <></>}
+                    {label ? <b className={cx(["ms-3", "label", "text-bg-dark"])}>{label}</b> : <></>}
                 </div>
             )}
             
-            <pre>
-                {showLoader && <Loader hidden={lastUpdateTime.current > 0 || !loggerName} />}
+            <pre ref={preRef}>
                 {<span dangerouslySetInnerHTML={{ __html: HTMLlogs }}></span>}
+                {showLoader && <Loader hidden={lastUpdateTime.current > 0 || !loggerName} />}
             </pre>
         </div>
     )

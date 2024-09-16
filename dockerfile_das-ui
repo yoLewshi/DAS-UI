@@ -5,7 +5,8 @@ WORKDIR /app
 COPY package.json .
 COPY . .
 
-RUN npm install
+RUN npm config set ca null
+RUN npm install --no-package-lock
 RUN npm i -g serve
 
 RUN npm run build
