@@ -24,7 +24,7 @@ function Clock(props) {
             <div>{String(time.getUTCMinutes()).padStart(2, "0")}</div>
             <span>:</span>
             <div>{String(time.getUTCSeconds()).padStart(2, "0")}</div>
-            <span className="ps-2">UTC</span>
+            <span className={cx(["ps-2", "timezone"])}>UTC</span>
         </div>
     )
 };

@@ -14,10 +14,11 @@ function Toast() {
             [...toastElList].map(toastEl => {
                 const toastId = toastEl.id;
                 if(!messages[toastId].shown) {
+                    // eslint-disable-next-line no-undef
                     const bsToast = bootstrap.Toast.getOrCreateInstance(toastEl);
                     bsToast.show();
-                    // default delay is 10 seconds, this gives time for fade in and out
-                    setTimeout(removeToast.bind(null, toastEl.id), 10000);
+                    // default delay is 30 seconds, this gives time for fade in and out
+                    setTimeout(removeToast.bind(null, toastEl.id), 30000);
                     messages[toastId].shown = true;
                 }            
             })
@@ -43,8 +44,8 @@ function Toast() {
                     const message = messages[key];
                     return (
                         <div className={cx(["toast", "toast_outer"])} role="alert" key={key} id={key} type={message.type}>
-                            <div className="d-flex">
-                                <div className="toast-body">
+                            <div className={cx(["d-flex", "toast_wrapper"])}>
+                                <div className={cx(["toast-body"])}>
                                 {parseArrayContent(message)}
                                 </div>
                                 <button type="button" className="btn me-2 m-auto" data-bs-dismiss="toast">

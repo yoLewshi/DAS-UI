@@ -6,3 +6,11 @@
 .toast_outer[type="error"] {
     border-top: 0.5rem solid var(--bs-danger);
 }
+
+.toast_outer[type="warning"] {
+    border-top: 0.5rem solid var(--bs-warning);
+}
+
+.toast_outer[type="success"] {
+    border-top: 0.5rem solid var(--bs-success);
+}

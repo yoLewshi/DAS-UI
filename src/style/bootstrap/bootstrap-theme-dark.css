@@ -1,0 +1,144 @@
+/* potential palette https: //coolors.co/668586-0b0c0e-212529-bb4430-f1ede5 */
+
+body.dark .dropdown-menu {
+    --bs-dropdown-border-color: #212529;
+}
+
+@media (max-width: 992px) {
+    body.dark .navbar-collapse {
+        background-color: var(--bs-body-bg);
+    }
+}
+
+body.dark {
+    --bs-body-bg: #212529;
+    --bs-secondary-bg: #212529;
+    --bs-tertiary-bg: #212529;
+    --bs-body-color: #F1EDE5;
+    --bs-info: rgb(0 168 95 / 60%);
+    --bs-emphasis-color: #F1EDE5;
+    /* --highlight-bg: #212529; */
+    
+    --highlight-bg: #0B0C0E;
+    --secondary-highlight-bg: #373b3e;
+    
+    --highlight-text-color: #F1EDE5;
+    --bs-emphasis-color-rgb: 255,255,255;
+    --bs-dark: #0B0C0E;
+    --bs-dark-rgb: #F1EDE5;
+    --bs-nav-link-color: #F1EDE5;
+    --bs-border-color: #0B0C0E;
+    --bs-border-color-translucent: rgba(0,0,0,0.9);
+    --translucent-overlay: rgba(255, 255, 255, 0.5);
+}
+
+body.dark .das_logo {
+    filter: invert(1);
+}
+
+body.dark .table-dark {
+    --bs-table-color: #F1EDE5;
+    --bs-table-bg: #0B0C0E;
+    --bs-table-border-color: #373b3e;
+    --bs-table-striped-bg: #2c3034;
+    --bs-table-striped-color: #0B0C0E;
+    --bs-table-active-bg: #373b3e;
+    --bs-table-active-color: #0B0C0E;
+    --bs-table-hover-bg: #323539;
+    --bs-table-hover-color: #0B0C0E;
+    color: var(--bs-table-color);
+    border-color: var(--bs-table-border-color);
+}
+
+body.dark .border-dark {
+    border-color: #0B0C0E !important;
+}
+
+body.dark .dropdown-menu {
+    --bs-dropdown-color: var(--bs-body-color);
+    --bs-dropdown-bg: var(--bs-body-bg);
+    --bs-dropdown-border-color: var(--bs-border-color-translucent);
+    --bs-dropdown-border-radius: var(--bs-border-radius);
+    --bs-dropdown-border-width: var(--bs-border-width);
+    --bs-dropdown-inner-border-radius: calc(var(--bs-border-radius) - var(--bs-border-width));
+    --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
+    --bs-dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --bs-dropdown-link-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-bg: var(--secondary-highlight-bg);
+    --bs-dropdown-link-active-color: #fff;
+    --bs-dropdown-link-active-bg: var(--bs-info);
+    --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
+    --bs-dropdown-header-color: #6c757d;
+}
+
+
+body.dark .toast {
+    --bs-toast-bg: var(--highlight-bg);
+    --bs-toast-border-widt: 0;
+    --bs-toast-border-radius: 0;
+    --bs-toast-box-shadow: none;
+    --bs-toast-color: var(--bs-body-color);
+    --bs-btn-close-color: #212529;
+}
+
+body.dark .toast_outer:not([type="error"]) .toast_wrapper{
+    border-top: 0.5rem solid var(--bs-info);
+}
+
+.nav,
+.nav-underline {
+    --bs-nav-link-hover-color: var(--bs-body-color);
+    --bs-nav-link-color: var(--bs-nav-link-hover-color);
+}
+
+body.dark .navbar-nav .nav-link.active,
+body.dark .navbar-nav .nav-link.show {
+    color: var(--bs-navbar-active-color);
+}
+
+body.dark .btn-dark {
+    --bs-btn-color: #F1EDE5;
+    --bs-btn-bg: #0B0C0E;
+    --bs-btn-border-color: #0B0C0E;
+    --bs-btn-hover-color: #F1EDE5;
+    --bs-btn-hover-bg: #424649;
+    --bs-btn-hover-border-color: #373b3e;
+    --bs-btn-focus-shadow-rgb: 66, 70, 73;
+    --bs-btn-active-color: #F1EDE5;
+    --bs-btn-active-bg: #4d5154;
+    --bs-btn-active-border-color: #373b3e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #F1EDE5;
+    --bs-btn-disabled-bg: #0B0C0E;
+    --bs-btn-disabled-border-color: #0B0C0E;
+}
+
+body.dark .btn-close {
+    filter: var(--bs-btn-close-white-filter);
+}
+
+body.dark b {
+    background: var(--bs-body-color);
+    /* background: #668586; */
+    color: var(--bs-body-bg);
+}
+
+body.dark .text-bg-dark {
+    color: var(--bs-body-color) !important;
+    background-color: var(--highlight-bg) !important;
+}
+
+body.dark .form-control:focus {
+    border-color: var(--highlight-bg);
+    color: var(--bs-body-color) !important;
+}
+
+body.dark .log_block {
+    color: var(--highlight-bg);
+}
+
+body.dark .monaco-editor, body.dark .monaco-diff-editor {
+    --vscode-editor-background: var(--bs-body-bg);
+    --vscode-editorGutter-background: var(--bs-body-bg);
+}

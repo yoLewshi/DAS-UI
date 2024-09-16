@@ -28,8 +28,13 @@ nav + *{
 
 @media(min-width: 992px) {
     nav+* {
-            margin-top: 48px;
-            height: calc(100vh - 48px);
+            margin-top: 58px;
+            height: calc(100vh - 58px);
+    }
+
+    nav+iframe {
+        margin-top: 48px;
+        height: calc(100vh - 48px);
     }
 }
 
@@ -62,7 +67,7 @@ b {
     font-weight: 600;
     background-color: var(--highlight-bg);
     color: var(--bs-body-bg);
-    padding: 0.1rem 0.3rem 0.2rem 0.3rem
+    padding: 0.1rem 0.35rem 0.2rem 0.3rem
 }
 
 h2 {
@@ -82,7 +87,12 @@ h2 {
 
 :global(.log_error) {
     background-color: var(--bs-danger);
-    color: #fff;
+    color: #fff !important;
+}
+
+:global(.timestamp) {
+    padding: 0 0.3rem;
+    border-right: 0.2rem solid var(--translucent-overlay);
 }
 
 :global(.input-group-text) {

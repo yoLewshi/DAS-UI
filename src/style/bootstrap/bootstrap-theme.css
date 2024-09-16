@@ -17,6 +17,8 @@
     --highlight-bg: #212529;
     --secondary-highlight-bg: #373b3e;
     --highlight-text-color: #fff;
+    --translucent-overlay: rgba(0, 0, 0, 0.5);
+    --hash-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .nav, .nav-underline {
@@ -26,9 +28,35 @@
     --bs-nav-link-padding-y: 0.25rem;
 }
 
+@media (min-width: 992px) {
+    .navbar::after {
+        content: "";
+        position: absolute;
+        bottom: calc(var(--bs-navbar-padding-y) * -1.5);
+        width: 100%;
+        height: calc(var(--bs-navbar-padding-y) * 1.5);
+        border-top: 0.2rem solid var(--bs-dark);
+        background-image: var(--hash-pattern);
+    }
+}
+
+.nav-link {
+    transition: border-color .15s ease-in-out !important;
+}
+
+.nav-link, .nav-item .dropdown-item {
+    font-weight: 600;
+    letter-spacing: 0.12rem;
+}
+
+.dropdown-item {
+    font-weight: 600;
+    letter-spacing: 0.06rem;
+}
+
 .nav-underline .nav-link.active,
 .nav-underline .show>.nav-link {
-    font-weight: unset;
+    font-weight: 600;
 }
 
 .nav-item {
@@ -44,12 +72,48 @@
 }
 
 .offcanvas {
-    --bs-offcanvas-width: 40rem;
+    --bs-offcanvas-width: 34rem;
+}
+
+.offcanvas::after {
+    content: "";
+    position: absolute;
+    left: calc(0.25rem * -1.5);
+    height: 100%;
+    width: calc(0.25rem * 1.5);
+    border-right: 0.2rem solid var(--bs-dark);
+    background-image: var(--hash-pattern);
 }
 
 .dropdown-menu {
     --bs-dropdown-link-active-bg: var(--secondary-highlight-bg);
     --bs-dropdown-border-radius: 0;
+    --bs-dropdown-border-color: transparent;
+    border-top: 0.2rem solid var(--bs-dark);
+    border-right: 0.2rem solid var(--bs-dark);
+}
+
+
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -0.15rem;
+    left: calc(0.25rem * -1.5);
+    height: calc(100% + 0.15rem);
+    width: calc(0.25rem * 1.5);
+    border-right: 0.2rem solid var(--bs-dark);
+    background-image: var(--hash-pattern);
+}
+
+.dropdown-menu::after {
+    content: "";
+    position: absolute;
+    bottom: calc(0.25rem* -1.5);
+    width: calc(100% + 0.3rem);
+    left: -0.15rem;
+    height: calc(0.25rem* 1.5);
+    border-top: 0.2rem solid var(--bs-dark);
+    background-image: var(--hash-pattern);
 }
 
 .table {
@@ -87,7 +151,10 @@ input[type="file"], .input-group {
     --bs-toast-border-radius: 0;
     --bs-toast-box-shadow: none;
     --bs-toast-color: #fff;
-    --bs-btn-close-color: #fff;
+}
+
+.toast button {
+    --bs-btn-color: #F1EDE5;
 }
 
 .bi-question-square-fill {

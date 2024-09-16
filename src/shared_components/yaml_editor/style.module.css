@@ -6,7 +6,7 @@
     left: 0 !important;
 }
 
-:global(.monaco-diff-editor.vs .diffOverview) {
+:global(.monaco-diff-editor.vs .diffOverview), :global(.monaco-diff-editor.vs-dark .diffOverview) {
     background: transparent !important;
 }
 

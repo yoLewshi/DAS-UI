@@ -1,14 +1,17 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import { GlobalContext, addMessage } from '../../shared_components/globalContext';
 import DASTable from '../../shared_components/das_table';
 import LoggerDetails from '../../shared_components/logger_details';
 
 import { getAPI } from '../../shared_methods/api';
+import { setValue } from '../../shared_methods/cache';
 import { connectLoggerStatuses, parseOutput } from '../../shared_methods/loggerStatus';
 import { websocket } from '../../shared_methods/websocket';
 
 import styles from "./style.module.css";
 
 import classNames from 'classnames/bind';
+
 
 let cx = classNames.bind(styles);
 
@@ -18,9 +21,13 @@ function Home() {
     const loggersRef = useRef();
     const [selectedLogger, setSelectedLogger] = useState(null);
     const [loggerRows, setLoggerRows] = useState([]);
+    const [lastSocketResponse, setLastSocketResponse] = useState({});
     const [loggerStatusDetails, setLoggerStatusDetails] = useState({});
 
-    const headers = ["\u00A0", "Active Config", "\u00A0", "\u00A0"];
+    const { setMessages, messagesRef, global } = useContext(GlobalContext);
+
+    const dismissButton = <i className={cx(["bi", "bi-hand-thumbs-up-fill", "dismiss_alerts"])} onClick={dismissAlerts} data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={"Clear warnings"}></i>;
+    const headers = ["\u00A0", "Active Config", "\u00A0", dismissButton];
 
     function onLoad() {
        getLoggers();
@@ -78,6 +85,8 @@ function Home() {
 
     function onDetailedLoggerStatus(socketResponse) {
         const statusDetails = {};
+        setLastSocketResponse(socketResponse);
+
         Object.keys(socketResponse).map((key) => {
             if(key.indexOf("stderr:logger:") == 0) {
                 const loggerName = key.replace("stderr:logger:", "");
@@ -95,7 +104,7 @@ function Home() {
         const rowStatus = loggerStatusDetails[loggerName];
         const classes = [];
 
-        if(row[1].indexOf("->off") > -1) {
+        if(row[1].indexOf("off") > -1) {
             // don't highlight errors for loggers that are turned off
             return classes
         }
@@ -130,11 +139,27 @@ function Home() {
         return classes;
     }
 
+    function dismissAlerts() {
+        // this value is used in the loggerStatus methods instead of the cutoff
+        setValue("dismissedAlerts", Date.now());
+        addMessage(messagesRef, setMessages, "You're ignoring the current logger errors and warnings on this machine", "warning")
+        onDetailedLoggerStatus(lastSocketResponse);
+    }
+
+    function parseConfigName(fullConfigName) {
+        try {
+            return fullConfigName.split("->")[1];
+        } catch (e) {
+            return fullConfigName;   
+        }
+    }
+
     const ref = useCallback((node) => {
         if(node != null) {
-            const tooltipTriggerList = node.querySelectorAll(`.${styles.cruise_logger_icon}[data-bs-toggle="tooltip"], .${styles.active_logger_icon}[data-bs-toggle="tooltip"]`);
+            const tooltipTriggerList = node.querySelectorAll(`.${styles.cruise_logger_icon}[data-bs-toggle="tooltip"], .${styles.active_logger_icon}[data-bs-toggle="tooltip"], .bi-hand-thumbs-up-fill[data-bs-toggle="tooltip"]`);
 
             [...tooltipTriggerList].map(tooltipTriggerEl => {
+                // eslint-disable-next-line no-undef
                 bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl);
             })
         }
@@ -142,8 +167,8 @@ function Home() {
 
     useEffect(() => {
         connectLoggerStatuses(websocket, onDetailedLoggerStatus);
-
-        const activeLoggerIcon = <i className={cx(["bi", "bi-check-lg", "active_logger_icon"])}  data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={"Logger is running"}></i>;
+        
+        const activeLoggerIcon = <i className={cx(["bi", "bi-check-circle-fill", "active_logger_icon"])}  data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={"Logger is running"}></i>;
         const cruiseLoggerIcon = <i className={cx(["bi", "bi-file-text-fill", "cruise_logger_icon"])}  data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={"Specific to this cruise file"}></i>;
 
         const sortedRows = Object.keys(loggers).sort((a, b) => { 
@@ -154,7 +179,7 @@ function Home() {
             const loggerDetails = loggers[loggerName];
             // the original page props (.active) don't use the same key as the websocket response (.config)
             return [
-                loggerName, (loggerDetails.active ||  loggerDetails.config), 
+                loggerName, (parseConfigName(loggerDetails.active) || parseConfigName(loggerDetails.config)), 
                 loggerDetails.status == "RUNNING" ? activeLoggerIcon : "",
                 cruiseSpecificLoggers.includes(loggerName) ? cruiseLoggerIcon : "",
             ];
