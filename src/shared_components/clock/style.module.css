@@ -3,3 +3,7 @@
     font-family: var(--bs-font-monospace);
     vertical-align: middle;
 }
+
+.timezone {
+    color: var(--translucent-overlay);
+}
