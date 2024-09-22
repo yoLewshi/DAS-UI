@@ -19,6 +19,13 @@ This app runs on vite. You can run it locally if you have node.js installed by r
 Run `npm run build` to create the `dist` folder then run `install_das-ui.sh` to build the docker image.
 
 
+## Setup
+
+This repo is tied to NIWA's use of OpenRVDAS, parts such as the UDP subscription and live log outputs will not work without altering the OpenRVDAS backend code.
+
+Parts of the UI are hidden by permissions, the call to the backend `/get-auth-user` endpoint should return a `user_permissions` key containing a list of the users permissions such as `manage_udp`. Alternatively you could overwrite the `checkForPermission` method to handle permission checks in a different way.
+
+
 ### Tips
 
 #### Running without a cruise file
