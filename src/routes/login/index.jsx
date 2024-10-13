@@ -41,6 +41,12 @@ function Login(props) {
         })
     }
 
+    function checkSubmit(event) {
+        if(event.key === "Enter") {
+            submitLogin();
+        }
+    }
+
     return (  
         <div className="container-fluid">
             <div className="row">
@@ -53,7 +59,7 @@ function Login(props) {
                     <label htmlFor="Username" className="form-label"><h5>Username</h5></label>
                     <input type="text" className="form-control mb-3" id="Username" />
                     <label htmlFor="Password" className="form-label"><h5>Password</h5></label>
-                    <input type="password" className="form-control" id="Password" />
+                    <input type="password" className="form-control" id="Password" onKeyUp={checkSubmit} />
                     <button type="button" className={cx(["btn", "btn-dark", "mt-3", "login_btn"])} onClick={submitLogin}>Log in</button>
                 </div>
             </div>
