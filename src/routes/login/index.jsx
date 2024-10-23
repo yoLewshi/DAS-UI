@@ -11,7 +11,7 @@ import logoURL from "../../assets/logo.svg";
 function Login(props) {
     
     const {redirectTo} = props;
-    const { setMessages, messagesRef, global, setGlobal } = useContext(GlobalContext);
+    const { setMessages, messagesRef, global, setGlobal, getAuthDetails } = useContext(GlobalContext);
 
     if(global.authToken) {
         window.location.replace(redirectTo || "/");
@@ -33,14 +33,16 @@ function Login(props) {
         postAPI("/obtain-auth-token/", formData, (response) => {
             if(response.token) {
                 setGlobal(Object.assign({}, global, {authToken: response.token}));
-                window.location.replace(redirectTo || "/");
+                getAuthDetails().then(() => {
+                    window.location.replace(redirectTo || "/");
+                })
             } else {
                 console.error(response)
                 addMessage(messagesRef, setMessages, response.message || response.non_field_errors, "error");
             }
         })
     }
-
+    
     function checkSubmit(event) {
         if(event.key === "Enter") {
             submitLogin();

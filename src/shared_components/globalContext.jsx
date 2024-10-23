@@ -93,7 +93,7 @@ export function GlobalProvider(props) {
 	useEffect(onRender, []);
 
 	return (
-		<GlobalContext.Provider value={{ messages, setMessages, messagesRef, global, setGlobal}}>
+		<GlobalContext.Provider value={{ messages, setMessages, messagesRef, global, setGlobal, getAuthDetails}}>
 			{props.children}
 		</GlobalContext.Provider>
 	)

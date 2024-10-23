@@ -21,7 +21,9 @@ const Grafana = lazy(() => import('./routes/grafana'));
 const OpenRVDAS = lazy(() => import('./routes/openrvdas'));
 const CacheViewer = lazy(() => import('./routes/cache_viewer'));
 const Shortcuts = lazy(() => import('./routes/shortcuts'));
+const TripManager = lazy(() => import('./routes/trip'));
 const UDPManager = lazy(() => import('./routes/udp_manager'));
+
 
 function App() { 
   return (
@@ -38,6 +40,7 @@ function App() {
             <Route path="/edit_yaml" element={<EditYaml />} />
             <Route path="/grafana" element={<Grafana />} />
             <Route path="/native" element={<OpenRVDAS />} />
+            <Route path="/trip" element={<TripManager />} />
             <Route path="/udp" element={<UDPManager />} />
             <Route path="/admin/django" element={<Django />} />
             <Route path="/admin/shortcuts" element={<Shortcuts />} />

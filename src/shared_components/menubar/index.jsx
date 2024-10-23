@@ -104,6 +104,7 @@ function Menubar() {
                                 <ul className="dropdown-menu">
                                     {permissions.manage_loggers && buildDropdownItem("/loggers", "Manage Loggers")}
                                     {permissions.manage_udp && buildDropdownItem("/udp", "UDP Subscriptions")}
+                                    {permissions.manage_trip && buildDropdownItem("/trip", "Trip data")}
                                     {permissions.manage_cruise && buildDropdownItem("/cruise/config", "Cruise Config")}
                                     {permissions.view_native && buildDropdownItem("/native", "Native OpenRVDAS")}
                                 </ul>
