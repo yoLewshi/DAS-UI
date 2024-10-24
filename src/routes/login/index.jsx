@@ -33,7 +33,7 @@ function Login(props) {
         postAPI("/obtain-auth-token/", formData, (response) => {
             if(response.token) {
                 setGlobal(Object.assign({}, global, {authToken: response.token}));
-                getAuthDetails().then(() => {
+                return getAuthDetails().then(() => {
                     window.location.replace(redirectTo || "/");
                 })
             } else {

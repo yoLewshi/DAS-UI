@@ -22,7 +22,7 @@ function Menubar() {
     const context = useContext(GlobalContext);
     const permissions = context?.global.permissions || {};
     
-    const seeUtilities = permissions.manage_cruise || permissions.manage_udp || permissions.manage_loggers;
+    const seeUtilities = permissions.manage_cruise || permissions.manage_udp || permissions.manage_loggers || permissions.manage_trip;
     const seeAdmin = context.global.superuser;
 
     const { setMessages, messagesRef } = useContext(GlobalContext);

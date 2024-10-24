@@ -4,6 +4,7 @@ import { GlobalContext } from '../globalContext';
 import classNames from 'classnames/bind';
 import styles from "./style.module.css";
 import { clearAuth } from '../../shared_methods/api';
+import { clearValue } from '../../shared_methods/cache';
 let cx = classNames.bind(styles);
 
 function UserAccountBlock(props) {
@@ -13,6 +14,7 @@ function UserAccountBlock(props) {
 
     function onClick(event) {
         clearAuth();
+        clearValue("user");
         window.location.replace("/login/");
     }
 

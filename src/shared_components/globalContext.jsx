@@ -67,8 +67,10 @@ export function GlobalProvider(props) {
 	}
 
 	function getAuthDetails() {
-		getAPI("/get-auth-user").then((response) => {
+		return getAPI("/get-auth-user").then((response) => {
 				if(response?.user) {
+					setValue("user", response.user);
+
 					const updatedProps = Object.assign({}, global, 
 						{
 							username: response.user.username, 
@@ -79,7 +81,6 @@ export function GlobalProvider(props) {
 							superuser: response.user.is_superuser
 						});
 					setGlobal(updatedProps);
-					setValue("user", response.user);
 				}
 		})
 	}

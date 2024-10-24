@@ -8,7 +8,7 @@ function getValue(key) {
 }
 
 function clearValue(key) {
-    localStorage.remove(key);
+    localStorage.removeItem(key);
 }
 
 export { setValue, getValue, clearValue }
